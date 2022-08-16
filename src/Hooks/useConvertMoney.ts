@@ -5,8 +5,13 @@ const useConvertMoney = (value: number): string => {
   rub = rub.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   
   // Проверяем пенни
-  penny = (!penny) ? '0' : penny;
-  penny = (Number(penny) <= 9) ? `${penny}0` : penny;
+  if(penny) {
+    if(penny.length === 1) {
+      penny = (Number(penny) <= 9) ? `${penny}0` : penny;
+    }
+  } else {
+    penny = '00';
+  }
 
   return `${rub}.${penny} Руб.`;
 }
