@@ -47,13 +47,24 @@ const MainPage: FC = () => {
   }, [moneyValue]);
 
   /**
-   * @deprecated
+   * Проверяем что пользователь ввел
    */
   function handleChangeText(text: string): void {
-    setMoneyValue(text);
+    let [, penny] = text.split('.', 2);
+    if(penny) {
+      if(penny.length <= 2) {
+        setMoneyValue(text);
+      }
+    } else {
+      setMoneyValue(text);
+    }
   }
 
   function handleSubmit(): void {
+    /**
+     * TODO:
+     *  - Добавить логику сохранения баланска (backend)
+     */
     setMoneyValue('');
   }
 
