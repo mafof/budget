@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { 
   MainPage,
+  OperationListPage,
   StatsPage,
   SettingPage,
   StartSettingPage
@@ -32,6 +33,11 @@ export default function App() {
         ? 'md-home'
         : 'md-home-outline'
       break;
+      case 'Список операций':
+        iconName = focused
+        ? 'md-list'
+        : 'md-list-outline'
+      break;
       case 'Статистика':
         iconName = focused
         ? 'md-stats-chart'
@@ -53,6 +59,7 @@ export default function App() {
         screenOptions={(route) => ({ tabBarIcon: ({focused, color, size}) => getIcon({route, focused, color, size}) })}
       >
         <Tab.Screen name="Главная" component={MainPage} />
+        <Tab.Screen name="Список операций" component={OperationListPage} />
         <Tab.Screen name="Статистика" component={StatsPage} />
         <Tab.Screen name="Настройки" component={SettingPage} />
       </Tab.Navigator>
