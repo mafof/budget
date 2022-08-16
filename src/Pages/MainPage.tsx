@@ -5,8 +5,10 @@
 import react, { FC, useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput, Text } from 'react-native';
 
-import { useConvertMoney } from 'hooks';
 import LoadingScreenPage from './LoadingScreenPage';
+
+import { useConvertMoney } from 'hooks';
+import { MoneyOperation } from 'helpers'; 
 
 let timeOut: NodeJS.Timer | null = null;
 
@@ -35,7 +37,7 @@ const MainPage: FC = () => {
     if(moneyValue && moneyValue.length !== 0) {
       timeOut = setTimeout(() => {
         if(!isNaN(Number(moneyValue))) {
-          let prevMoneyBalance = prevBalance - Number(moneyValue);
+          let prevMoneyBalance = MoneyOperation.minus(prevBalance, Number(moneyValue));
           setBalanceDay(prevMoneyBalance);
         }
       }, 200);
@@ -43,6 +45,13 @@ const MainPage: FC = () => {
       setBalanceDay(prevBalance);
     }
   }, [moneyValue]);
+
+  /**
+   * @deprecated
+   */
+  function handleChangeText(text: string): void {
+    setMoneyValue(text);
+  }
 
   function handleSubmit(): void {
     setMoneyValue('');
@@ -71,7 +80,7 @@ const MainPage: FC = () => {
 
           <TextInput 
             style={styles.input}
-            onChangeText={setMoneyValue}
+            onChangeText={handleChangeText}
             onSubmitEditing={handleSubmit}
             value={moneyValue}
             keyboardType='decimal-pad'
