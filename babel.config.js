@@ -9,7 +9,9 @@ module.exports = function(api) {
           alias: {
             pages: "./src/Pages/index",
             helpers: "./src/Helpers/index",
-            hooks: "./src/Hooks/index"
+            hooks: "./src/Hooks/index",
+            api: "./src/Services/API/index",
+            migration: "./src/Services/DB/Migrations/index"
           }
         }
       ]
