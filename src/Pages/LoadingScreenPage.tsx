@@ -1,10 +1,10 @@
-/**
- * Экран загрузки
- */
 import react, { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator } from 'react-native';
 
+/**
+ * Экран загрузки
+ */
 const LoadingScreenPage: FC = () => {
 
   return (

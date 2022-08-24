@@ -1,10 +1,9 @@
-/**
- * Страница с списком операций
- */
-
 import react, { FC } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
+/**
+ * Страница с списком операций
+ */
 const OperationListPage: FC = () => {
   return (
     <View style={styles.container}>

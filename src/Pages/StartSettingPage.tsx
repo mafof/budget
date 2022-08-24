@@ -1,10 +1,9 @@
-/**
- * Страница первоначальных настроек
- */
-
 import react, { FC } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
+/**
+ * Страница первоначальных настроек
+ */
 const StartSettingPage: FC = () => {
   return (
     <View style={styles.container}>

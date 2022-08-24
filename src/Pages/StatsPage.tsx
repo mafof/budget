@@ -1,10 +1,9 @@
-/**
- * Страница статистики
- */
-
 import react, { FC } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
+/**
+ * Страница статистики
+ */
 const StatsPage: FC = () => {
   return (
     <View style={styles.container}>
