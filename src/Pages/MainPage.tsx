@@ -1,6 +1,6 @@
 import react, { FC, useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput, Text } from 'react-native';
-import { CurrentBalance } from 'migration';
+import { CurrentBalance, OperationList } from 'migration';
 
 import LoadingScreenPage from './LoadingScreenPage';
 
@@ -8,6 +8,8 @@ import { useConvertMoney } from 'hooks';
 import { MoneyOperation } from 'helpers'; 
 
 let timeOut: NodeJS.Timer | null = null;
+let currentBalanceDB = new CurrentBalance();
+let operationListDB = new OperationList();
 
 /**
  * Главная страница
