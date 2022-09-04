@@ -1,8 +1,5 @@
 import BaseMigration from "./BaseMigration";
 
-import * as FileSystem from 'expo-file-system';
-import * as Sharing from 'expo-sharing';
-
 /**
  * Модель реализующая структуры таблицы current_balance, содержит баланс счета с учетом операций
  */
