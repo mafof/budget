@@ -1,33 +1,25 @@
-import * as SQLite from 'expo-sqlite';
+import { DataBase } from 'db';
 
 /**
- * Базовый класс реализующий методы для миграций таблиц3
- * @TODO
- *  - Переписать на базовый класс работы с БД
+ * Базовый класс реализующий методы для миграций таблиц
  */
-abstract class BaseMigration {
+abstract class BaseMigration extends DataBase {
   protected abstract tableName: string;
-  protected db: SQLite.WebSQLDatabase;
 
   constructor() {
-    this.db = SQLite.openDatabase('db', '1.0');
-    
-    // Включаем поддержку внешних ключей =>
-    this.db.exec([{ sql: 'PRAGMA foreign_keys = ON;', args: [] }], false, () =>
-      console.log('Foreign keys turned on')
-    );
+    super();
   }
 
-  protected checkIsHaveTable(): boolean {
-    console.dir(this.tableName);
-    return true;
+  protected async isHaveTable(): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      resolve(((await this.sqlQuery("SELECT name FROM sqlite_master WHERE type='table' AND name = ?", [this.tableName])) !== null));
+    });
   }
 
   /**
    * Функция создаяющая структуру таблицы
-   * @return {boolean} - Успешна ли операция
    */
-  protected abstract createTable(): boolean;
+  protected abstract createTable(): Promise<void>;
 }
 
 export default BaseMigration;

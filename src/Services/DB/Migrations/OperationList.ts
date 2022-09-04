@@ -8,11 +8,19 @@ class OperationList extends BaseMigration {
   
   constructor() {
     super();
-    this.checkIsHaveTable();
   }
 
-  protected createTable(): boolean {
-    throw new Error("Method not implemented.");
+  protected async createTable(): Promise<void> {
+    await this.sqlQuery(`
+      CREATE TABLE ${this.tableName} (
+        id integer PRIMARY KEY not NULL,
+        type varchar(1) NOT NULL,
+        money integer NOT NULL,
+        penny integer NOT NULL
+      )
+    `, []);
+
+    return await Promise.resolve();
   }
 }
 

@@ -1,5 +1,8 @@
 import BaseMigration from "./BaseMigration";
 
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
+
 /**
  * Модель реализующая структуры таблицы current_balance, содержит баланс счета с учетом операций
  */
@@ -8,11 +11,19 @@ class CurrentBalance extends BaseMigration {
 
   constructor() {
     super();
-    this.checkIsHaveTable();
+    this.createTable();
   }
 
-  protected createTable(): boolean {
-    throw new Error("Method not implemented.");
+  protected async createTable(): Promise<void> {
+    await this.sqlQuery(`
+      CREATE TABLE IF NOT EXISTS ${this.tableName} (
+        id integer PRIMARY KEY not null,
+        money integer NOT NULL,
+        penny integer NOT NULL
+      )
+    `, []);
+
+    return await Promise.resolve();
   }
 }
 
