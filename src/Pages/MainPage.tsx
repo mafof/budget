@@ -1,6 +1,5 @@
 import react, { FC, useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput, Text } from 'react-native';
-
 import { CurrentBalance } from 'migration';
 
 import LoadingScreenPage from './LoadingScreenPage';
@@ -9,7 +8,6 @@ import { useConvertMoney } from 'hooks';
 import { MoneyOperation } from 'helpers'; 
 
 let timeOut: NodeJS.Timer | null = null;
-
 
 /**
  * Главная страница
@@ -28,8 +26,6 @@ const MainPage: FC = () => {
       setPrevBalance(850);
       setIsLoaded(true);
     }, 0);
-
-    new CurrentBalance();
   }, []);
 
   // Динамическое изменение тек. баланса =>
