@@ -14,9 +14,10 @@ class CurrentBalance extends BaseMigration {
   protected async createTable(): Promise<void> {
     await this.sqlQuery(`
       CREATE TABLE IF NOT EXISTS ${this.tableName} (
-        id integer PRIMARY KEY not null,
-        money integer NOT NULL,
-        penny integer NOT NULL
+        id integer PRIMARY KEY not NULL,
+        money integer NOT NULL DEFAULT 0,
+        penny integer NOT NULL DEFAULT 0,
+        at integer NOT NULL
       )
     `, []);
 

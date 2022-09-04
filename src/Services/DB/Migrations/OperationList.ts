@@ -8,6 +8,7 @@ class OperationList extends BaseMigration {
   
   constructor() {
     super();
+    this.createTable();
   }
 
   protected async createTable(): Promise<void> {
@@ -15,8 +16,9 @@ class OperationList extends BaseMigration {
       CREATE TABLE ${this.tableName} (
         id integer PRIMARY KEY not NULL,
         type varchar(1) NOT NULL,
-        money integer NOT NULL,
-        penny integer NOT NULL
+        money integer NOT NULL DEFAULT 0,
+        penny integer NOT NULL DEFAULT 0,
+        at integer NOT NULL
       )
     `, []);
 
