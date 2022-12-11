@@ -2,6 +2,10 @@ import BaseMigration from "./BaseModel";
 
 /**
  * Модель реализующая структуры таблицы current_balance, содержит баланс счета с учетом операций
+ * @description Стурктура таблицы =>
+ * money - Кол-во рублей
+ * penny - Кол-во копеек
+ * at - Время создания
  */
 class CurrentBalance extends BaseMigration {
   protected tableName: string = 'current_balance';
