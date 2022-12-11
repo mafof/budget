@@ -1,9 +1,9 @@
-import BaseMigration from "./BaseMigration";
+import BaseModel from "./BaseModel";
 import CurrentBalance from "./CurrentBalance";
 import OperationList from "./OperationList";
 
 export {
-  BaseMigration,
+  BaseModel,
   CurrentBalance,
   OperationList
 }

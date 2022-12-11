@@ -3,7 +3,7 @@ import { DataBase } from 'db';
 /**
  * Базовый класс реализующий методы для миграций таблиц
  */
-abstract class BaseMigration extends DataBase {
+abstract class BaseModel extends DataBase {
   protected abstract tableName: string;
 
   constructor() {
@@ -22,4 +22,4 @@ abstract class BaseMigration extends DataBase {
   protected abstract createTable(): Promise<void>;
 }
 
-export default BaseMigration;
+export default BaseModel;

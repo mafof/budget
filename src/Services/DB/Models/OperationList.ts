@@ -1,4 +1,4 @@
-import BaseMigration from "./BaseMigration";
+import BaseMigration from "./BaseModel";
 
 /**
  * Модель реализующая структуры таблицы operation_list, содержащая все операции по счету

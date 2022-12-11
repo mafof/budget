@@ -1,4 +1,4 @@
-import BaseMigration from "./BaseMigration";
+import BaseMigration from "./BaseModel";
 
 /**
  * Модель реализующая структуры таблицы current_balance, содержит баланс счета с учетом операций
