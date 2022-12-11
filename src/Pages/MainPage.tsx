@@ -1,6 +1,6 @@
 import react, { FC, useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput, Text } from 'react-native';
-import { CurrentBalance, OperationList } from 'migration';
+import { CurrentBalance, OperationList } from 'models';
 
 import LoadingScreenPage from './LoadingScreenPage';
 
