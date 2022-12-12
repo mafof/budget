@@ -18,16 +18,22 @@ const MainPage: FC = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [moneyValue, setMoneyValue] = useState<string>();
   const [balanceDay, setBalanceDay] = useState<number>(0);
-  const [prevBalance, setPrevBalance] = useState<number>(0); // Переменная для сброса баланса к исходному положению, если не выполнена операция по балансу
+
+  // Переменная хранящая в себе предыдующий баланс для сброса баланса к исходному положению, если не выполнена операция по балансу =>
+  const [prevBalance, setPrevBalance] = useState<number>(0);
 
   // Получение баланса на тек. день =>
   useEffect(() => {
+    setBalanceDay(850);
+    setPrevBalance(850);
+    setIsLoaded(true);
+    
     // Временное решение =>
-    setTimeout(() => {
-      setBalanceDay(850);
-      setPrevBalance(850);
-      setIsLoaded(true);
-    }, 0);
+    // setTimeout(() => {
+      // setBalanceDay(850);
+      // setPrevBalance(850);
+      // setIsLoaded(true);
+    // }, 0);
   }, []);
 
   // Динамическое изменение тек. баланса =>

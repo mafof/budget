@@ -6,6 +6,8 @@ import BaseMigration from "./BaseModel";
  * money - Кол-во рублей
  * penny - Кол-во копеек
  * at - Время создания
+ * 
+ * @deprecated Точно ли нужна такая таблица, ведь можно будет изменять сумму операций
  */
 class CurrentBalance extends BaseMigration {
   protected tableName: string = 'current_balance';

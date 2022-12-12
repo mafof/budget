@@ -25,6 +25,15 @@ class MoneyOperation {
     let percentTwo = moneyTwo * 100;
     return (percentOne + percentTwo) / 100;
   }
+
+  /**
+   * Разделяет Деньги на рубли и копейки
+   * @param {Number} money - Деньги
+   * @returns {Array} Возвращает массив где 1-ый элемент кол-во рублей, а 2-ой элемент кол-во копеек
+   */
+  public static getMoneyAndPenny(money: number) {
+    return money * 100;
+  }
 }
 
 export default MoneyOperation;
