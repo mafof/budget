@@ -1,9 +1,11 @@
 import BaseModel from "./BaseModel";
-import CurrentBalance from "./CurrentBalance";
 import OperationList from "./OperationList";
+import ProductList from "./ProductList";
+import CostProduct from "./CostProductList";
 
 export {
   BaseModel,
-  CurrentBalance,
-  OperationList
+  OperationList,
+  ProductList,
+  CostProduct
 }
