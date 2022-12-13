@@ -39,6 +39,7 @@ const MainPage: FC = () => {
       timeOut = setTimeout(() => {
         if(!isNaN(Number(moneyValue))) {
           let prevMoneyBalance = MoneyOperation.minus(prevBalance, Number(moneyValue));
+
           setBalanceDay(prevMoneyBalance);
         }
       }, 200);

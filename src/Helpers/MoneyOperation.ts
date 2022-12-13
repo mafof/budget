@@ -12,7 +12,7 @@ class MoneyOperation {
   public static minus(moneyOne: number, moneyTwo: number): number {
     let percentOne = moneyOne * 100;
     let percentTwo = moneyTwo * 100;
-    return (percentOne - percentTwo) / 100;
+    return Number(((percentOne - percentTwo) / 100).toFixed(2));
   }
 
   /**
@@ -23,7 +23,7 @@ class MoneyOperation {
   public static plus(moneyOne: number, moneyTwo: number): number {
     let percentOne = moneyOne * 100;
     let percentTwo = moneyTwo * 100;
-    return (percentOne + percentTwo) / 100;
+    return Number(((percentOne + percentTwo) / 100).toFixed(2));
   }
 
   /**
