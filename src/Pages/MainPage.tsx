@@ -1,6 +1,5 @@
-import react, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput, Text } from 'react-native';
-import { CurrentBalance, OperationList } from 'models';
 
 import LoadingScreenPage from './LoadingScreenPage';
 
@@ -8,8 +7,6 @@ import { useConvertMoney } from 'hooks';
 import { MoneyOperation } from 'helpers'; 
 
 let timeOut: NodeJS.Timer | null = null;
-let currentBalanceDB = new CurrentBalance();
-let operationListDB = new OperationList();
 
 /**
  * Главная страница
@@ -24,16 +21,12 @@ const MainPage: FC = () => {
 
   // Получение баланса на тек. день =>
   useEffect(() => {
-    setBalanceDay(850);
-    setPrevBalance(850);
-    setIsLoaded(true);
-    
     // Временное решение =>
-    // setTimeout(() => {
-      // setBalanceDay(850);
-      // setPrevBalance(850);
-      // setIsLoaded(true);
-    // }, 0);
+    setTimeout(() => {
+      setBalanceDay(850);
+      setPrevBalance(850);
+      setIsLoaded(true);
+    }, 0);
   }, []);
 
   // Динамическое изменение тек. баланса =>

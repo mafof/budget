@@ -1,4 +1,4 @@
-import react, { FC } from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator } from 'react-native';
 
