@@ -1,11 +1,9 @@
 import { Platform } from 'react-native'
-import * as SQLite from 'expo-sqlite';
-import { ResultSet, ResultSetError } from 'expo-sqlite';
 import * as FileSystem from 'expo-file-system';
-import * as DocumentPicker from 'expo-document-picker';
 import * as Sharing from 'expo-sharing';
 
-import { Asset } from 'expo-asset';
+import * as SQLite from 'expo-sqlite';
+import { ResultSet, ResultSetError } from 'expo-sqlite';
 
 /**
  * Базовый класс методов для рабьоты с Базой данных
