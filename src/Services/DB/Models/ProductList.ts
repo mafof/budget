@@ -1,4 +1,4 @@
-import BaseMigration from "./BaseModel";
+import BaseModel from "./BaseModel";
 
 /**
  * Модель реализующая структуры таблицы product_list, содержащая наименования всех продуктов
@@ -7,7 +7,7 @@ import BaseMigration from "./BaseModel";
  * created_at - Время создания
  * updated_at - Время обновления
  */
-class ProductList extends BaseMigration {
+class ProductList extends BaseModel {
   protected tableName: string = 'product_list';
 
 

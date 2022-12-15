@@ -1,4 +1,4 @@
-import BaseMigration from "./BaseModel";
+import BaseModel from "./BaseModel";
 
 /**
  * Модель реализующая структуры таблицы operation_list, содержащая все операции по счету
@@ -11,7 +11,7 @@ import BaseMigration from "./BaseModel";
  * created_at - Время создания
  * updated_at - Время обновления
  */
-class OperationList extends BaseMigration {
+class OperationList extends BaseModel {
   protected tableName: string = 'operation_list';
   
   constructor() {

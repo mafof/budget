@@ -1,4 +1,4 @@
-import BaseMigration from "./BaseModel";
+import BaseModel from "./BaseModel";
 
 /**
  * Модель реализующая структуры таблицы cost_product, содержащая ценники на продукты с временем момента их ввода
@@ -12,7 +12,7 @@ import BaseMigration from "./BaseModel";
  * created_at - Время создания
  * updated_at - Время обновления
  */
-class CostProduct extends BaseMigration {
+class CostProduct extends BaseModel {
   protected tableName: string = 'cost_product';
 
 
