@@ -1,5 +1,11 @@
+import { Platform } from 'react-native'
 import * as SQLite from 'expo-sqlite';
 import { ResultSet, ResultSetError } from 'expo-sqlite';
+import * as FileSystem from 'expo-file-system';
+import * as DocumentPicker from 'expo-document-picker';
+import * as Sharing from 'expo-sharing';
+
+import { Asset } from 'expo-asset';
 
 /**
  * Базовый класс методов для рабьоты с Базой данных
@@ -11,7 +17,7 @@ class DataBase {
     this.openDataBase();
   }
 
-  protected openDataBase(): void {
+  protected async openDataBase(): Promise<void> {
     this.db = SQLite.openDatabase('db', '1.0');
 
     // Включаем поддержку внешних ключей =>
@@ -40,6 +46,33 @@ class DataBase {
         }
       })
     })
+  }
+
+  /**
+   * Метод экспортирует БД в директорию которую укажет пользователь
+   */
+  public async exportDB(): Promise<void> {
+    if (Platform.OS === "android") {
+      const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+      if (permissions.granted) {
+        const base64 = await FileSystem.readAsStringAsync(
+          FileSystem.documentDirectory + 'SQLite/example.db',
+          {
+            encoding: FileSystem.EncodingType.Base64
+          }
+        );
+
+        await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, 'example.db', 'application/octet-stream')
+        .then(async (uri) => {
+          await FileSystem.writeAsStringAsync(uri, base64, { encoding : FileSystem.EncodingType.Base64 });
+        })
+        .catch((e) => console.log(e));
+      } else {
+        console.log("Permission not granted");
+      }
+    } else {
+      await Sharing.shareAsync(FileSystem.documentDirectory + 'SQLite/example.db');
+    }
   }
 
   /**
