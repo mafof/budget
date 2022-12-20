@@ -6,6 +6,8 @@ import BaseModel from "./BaseModel";
  * name - Наименование продукта (является уникальным ключом)
  * created_at - Время создания
  * updated_at - Время обновления
+ * 
+ * @deprecated Переписать под модель, где реализована система миграций
  */
 class ProductList extends BaseModel {
   protected tableName: string = 'product_list';

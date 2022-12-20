@@ -11,6 +11,8 @@ import BaseModel from "./BaseModel";
  * time_at - Момент времени (UNIX)
  * created_at - Время создания
  * updated_at - Время обновления
+ * 
+ * @deprecated Переписать под модель, где реализована система миграций
  */
 class CostProduct extends BaseModel {
   protected tableName: string = 'cost_product';

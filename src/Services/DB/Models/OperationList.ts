@@ -10,6 +10,8 @@ import BaseModel from "./BaseModel";
  * currency - валюта (по умолчанию RUB)
  * created_at - Время создания
  * updated_at - Время обновления
+ * 
+ * @deprecated Переписать под модель, где реализована система миграций
  */
 class OperationList extends BaseModel {
   protected tableName: string = 'operation_list';

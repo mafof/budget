@@ -1,7 +1,9 @@
-import { DataBase } from 'db';
+import DataBase from '../DataBase';
 
 /**
  * Базовый класс реализующий методы для миграций таблиц
+ * 
+ * @deprecated Переписать под модель, где реализована система миграций
  */
 abstract class BaseModel extends DataBase {
   protected abstract tableName: string;
