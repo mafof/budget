@@ -6,13 +6,25 @@ module.exports = function(api) {
       [
         "module-resolver",
         {
+          root: ['./src'],
+          extensions: [
+            '.ts',
+            '.tsx',
+            '.jsx',
+            '.js',
+            '.json',
+            '.svg',
+            '.jpg',
+            '.png'
+          ],
           alias: {
-            pages: "./src/Pages/index",
-            helpers: "./src/Helpers/index",
-            hooks: "./src/Hooks/index",
-            api: "./src/Services/API/index",
-            models: "./src/Services/DB/Models/index",
-            db: "./src/Services/DB/DB/index"
+            "@pages": "./src/Pages/index.ts",
+            "@helpers": "./src/Helpers/index.ts",
+            "@hooks": "./src/Hooks/index.ts",
+            "@api": "./src/Services/API/index.ts",
+            "@models": "./src/Services/DB/Models/index.ts",
+            "@db": "./src/Services/DB/index.ts",
+            "@migartion-list": "./src/Services/DB/Migration/MigrationList/index.ts"
           }
         }
       ]
