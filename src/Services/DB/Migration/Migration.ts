@@ -14,10 +14,10 @@ class Migration {
 
   /**
    * Проверяет, есть ли данная миграция в списке уже ранее смигрированных данных
-   * @param {String} migrationName - Наименование миграции
+   * @param {string} migrationName - Наименование миграции
    * @returns {Boolean} - Сделана ли миграция в БД
    */
-  private async isHaveMigrationTable(migrationName: String): Promise<Boolean> {
+  private async isHaveMigrationTable(migrationName: string): Promise<Boolean> {
     return await this.db.sqlQuery('SELECT name FROM migration_list WHERE name = ?', [migrationName]) !== null;
   }
 
