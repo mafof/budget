@@ -1,5 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
-import { StyleSheet, View, TextInput, Text } from 'react-native';
+import { 
+  StyleSheet,
+  View,
+  TextInput,
+  Text,
+  Pressable,
+  Button
+} from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import LoadingScreenPage from './LoadingScreenPage';
 
@@ -100,6 +108,22 @@ const MainPage: FC = () => {
             placeholder='Введите сумму'
             autoFocus={true}
           />
+
+          <View style={styles.container}>
+            <Text style={styles.textQRCode}>
+              ИЛИ
+            </Text>
+            
+            <View style={styles.containerButtonQRCode}>
+              <Pressable 
+                style={styles.buttonQRCode}
+                android_ripple={{borderless: true, color: '#1c84d5'}}
+              >
+                <MaterialCommunityIcons name="qrcode-scan" size={24} color="white" />
+                <Text style={styles.textButtonQRCode}>Отсканировать QR код</Text>
+              </Pressable>
+            </View>
+          </View>
       </View>
       :
       <LoadingScreenPage />
@@ -133,6 +157,34 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginTop: 10
   },
+
+  textQRCode: {
+    fontSize: 15,
+    marginTop: 25,
+    marginBottom: 25
+  },
+
+  containerButtonQRCode: {
+    alignSelf: 'stretch',
+    justifyContent: 'center',
+    borderRadius: 10,
+    elevation: 25,
+    overflow: 'hidden'
+  },
+
+  buttonQRCode: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    backgroundColor: '#2296f3'
+  },
+
+  textButtonQRCode: {
+    color: 'white',
+    paddingLeft: 10
+  }
 });
 
 export default MainPage;
