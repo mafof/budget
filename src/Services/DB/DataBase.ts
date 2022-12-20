@@ -16,7 +16,7 @@ class DataBase {
   }
 
   protected async openDataBase(): Promise<void> {
-    this.db = SQLite.openDatabase('db', '1.0');
+    this.db = SQLite.openDatabase('budgetDB.db', '1.0');
 
     // Включаем поддержку внешних ключей =>
     this.db?.exec([{ sql: 'PRAGMA foreign_keys = ON;', args: [] }], false, () => console.info('Foreign keys turned on'));
@@ -28,7 +28,7 @@ class DataBase {
    * @param {Array<unknown>} args - Аргументы
    * @returns {Object | null} Объект результата запроса или NULL
    */
-  protected sqlQuery(sql: string, args: Array<unknown> = []): Promise<Object | null | undefined> {
+  public sqlQuery(sql: string, args: Array<unknown> = []): Promise<Object | null | undefined> {
     return new Promise((resolve, reject) => {
       this.db?.exec([{ sql, args }], false, (err, result) => {
         if(result) {
@@ -54,13 +54,13 @@ class DataBase {
       const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
       if (permissions.granted) {
         const base64 = await FileSystem.readAsStringAsync(
-          FileSystem.documentDirectory + 'SQLite/example.db',
+          FileSystem.documentDirectory + 'SQLite/budgetDB.db',
           {
             encoding: FileSystem.EncodingType.Base64
           }
         );
 
-        await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, 'example.db', 'application/octet-stream')
+        await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, 'budgetDB.db', 'application/octet-stream')
         .then(async (uri) => {
           await FileSystem.writeAsStringAsync(uri, base64, { encoding : FileSystem.EncodingType.Base64 });
         })
@@ -69,7 +69,7 @@ class DataBase {
         console.log("Permission not granted");
       }
     } else {
-      await Sharing.shareAsync(FileSystem.documentDirectory + 'SQLite/example.db');
+      await Sharing.shareAsync(FileSystem.documentDirectory + 'SQLite/budgetDB.db');
     }
   }
 
