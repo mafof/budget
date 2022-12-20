@@ -3,8 +3,8 @@ import { StyleSheet, View, TextInput, Text } from 'react-native';
 
 import LoadingScreenPage from './LoadingScreenPage';
 
-import { useConvertMoney } from 'hooks';
-import { MoneyOperation } from 'helpers'; 
+import { useConvertMoney } from '@hooks';
+import { MoneyOperation } from '@helpers';
 
 let timeOut: NodeJS.Timer | null = null;
 

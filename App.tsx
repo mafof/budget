@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,8 +9,10 @@ import {
   StatsPage,
   SettingPage,
   StartSettingPage
-} from 'pages';
+} from '@pages';
 import { OpaqueColorValue } from 'react-native';
+
+import { Migration } from '@db';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +24,12 @@ interface ISettingIcon {
 }
 
 export default function App() {
+
+  // Проводим миграцию данных =>
+  useEffect(() => {
+    const migration = new Migration();
+    migration.migrateRun();
+  }, []);
 
   function getIcon({ route, focused, color, size }: ISettingIcon) {
     let iconName: any;
