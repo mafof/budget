@@ -41,7 +41,7 @@ export default function App() {
         ? 'md-home'
         : 'md-home-outline'
       break;
-      case 'Список операций':
+      case 'Операции':
         iconName = focused
         ? 'md-list'
         : 'md-list-outline'
@@ -67,9 +67,10 @@ export default function App() {
         screenOptions={(route) => ({ tabBarIcon: ({focused, color, size}) => getIcon({route, focused, color, size}) })}
       >
         <Tab.Screen name="Главная" component={MainPage} />
-        <Tab.Screen name="Список операций" component={OperationListPage} />
+        <Tab.Screen name="Операции" component={OperationListPage} />
         <Tab.Screen name="Статистика" component={StatsPage} />
         <Tab.Screen name="Настройки" component={SettingPage} />
+
       </Tab.Navigator>
     </NavigationContainer>
   );
