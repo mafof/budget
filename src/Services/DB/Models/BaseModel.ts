@@ -1,27 +1,62 @@
 import DataBase from '../DataBase';
 
+// Тип для переменной класса
+type typeOfAttributeField = { [s: string]: any }
+
 /**
- * Базовый класс реализующий методы для миграций таблиц
- * 
- * @deprecated Переписать под модель, где реализована система миграций
+ * Базовый класс модели
  */
 abstract class BaseModel extends DataBase {
+  /** Наименование таблицы */
   protected abstract tableName: string;
 
-  constructor() {
-    super();
-  }
+  /** Список полей */
+  protected attributeField: typeOfAttributeField = {};
 
-  protected async isHaveTable(): Promise<boolean> {
-    return new Promise(async (resolve, reject) => {
-      resolve(((await this.sqlQuery("SELECT name FROM sqlite_master WHERE type='table' AND name = ?", [this.tableName])) !== null));
-    });
+  constructor(attributeField: typeOfAttributeField) {
+    super();
+
+    this.attributeField = attributeField;
   }
 
   /**
-   * Функция создаяющая структуру таблицы
+   * Получение всех записей с возможностью вставки объекта WHERE
+   * @param {string | null} where - Строка с условиями WHERE оператора
+   * @param {Array<any>} params - 
    */
-  protected abstract createTable(): Promise<void>;
+  public getAll(where: string | null = null, params: Array<any> = []) {
+  }
+
+  public get(id: number | string) {
+
+  }
+
+  public save(): Boolean {
+    return true;
+  }
+
+  public remove(): Boolean {
+    return true;
+  }
+
+  private whereOperation(where: Object) {
+    const operationList = {
+      eq: '=',
+      neq: '<>',
+      lt: '<',
+      lteq: '<=',
+      gt: '>',
+      gteq: '>=',
+      cont: 'LIKE'
+    };
+    let resWhere: string | null = null;
+
+    for(let key in where) {
+      
+    }
+
+    return resWhere;
+  }
 }
 
 export default BaseModel;
