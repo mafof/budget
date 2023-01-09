@@ -73,6 +73,31 @@ class DataBase {
     }
   }
 
+
+  public static async staticExportDB(): Promise<void> {
+    if (Platform.OS === "android") {
+      const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+      if (permissions.granted) {
+        const base64 = await FileSystem.readAsStringAsync(
+          FileSystem.documentDirectory + 'SQLite/budgetDB_1.1.db',
+          {
+            encoding: FileSystem.EncodingType.Base64
+          }
+        );
+
+        await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, 'budgetDB_1.1.db', 'application/octet-stream')
+        .then(async (uri) => {
+          await FileSystem.writeAsStringAsync(uri, base64, { encoding : FileSystem.EncodingType.Base64 });
+        })
+        .catch((e) => console.log(e));
+      } else {
+        console.log("Permission not granted");
+      }
+    } else {
+      await Sharing.shareAsync(FileSystem.documentDirectory + 'SQLite/budgetDB_1.1.db');
+    }
+  }
+
   /**
    * Фукнция проверяющая является ли аргумент объектом типа ResultSet
    * @param {(ResultSet | ResultSetError)[] | undefined} result - Проверяемый объект
