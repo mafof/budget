@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -12,7 +12,16 @@ import {
 } from '@pages';
 import { OpaqueColorValue } from 'react-native';
 
-import { Migration } from '@db';
+import { createConnection } from 'typeorm/browser';
+
+import { DataBase } from '@db';
+
+import { 
+  WalletList,
+  OperationList,
+  ProductList,
+  CostProduct
+} from '@entities';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,11 +33,33 @@ interface ISettingIcon {
 }
 
 export default function App() {
+  const connect = useCallback(async () => {
+    try {
+      await createConnection({
+        name: 'default',
+        database: 'budgetDB_1.1.db',
+        driver: require('expo-sqlite'),
+        entities: [
+          WalletList,
+          ProductList,
+          OperationList,
+          CostProduct
+        ],
+        synchronize: true,
+        type: 'expo'
+      });
+    } catch(err) {
+      console.log(err);
+    }
+  }, []);
 
-  // Проводим миграцию данных =>
   useEffect(() => {
-    const migration = new Migration();
-    migration.migrateRun();
+    const run = async () => {
+      await connect();
+      DataBase.staticExportDB();
+    }
+
+    run();
   }, []);
 
   function getIcon({ route, focused, color, size }: ISettingIcon) {
