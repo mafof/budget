@@ -13,6 +13,9 @@
     "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^0.17.0",
     "@react-navigation/bottom-tabs": "^6.3.2",
+    "@types/node": "^18.11.18",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
+    "class-validator": "^0.14.0",
     "expo": "~46.0.6",
     "expo-document-picker": "^11.0.1",
     "expo-file-system": "^15.1.1",
@@ -24,7 +27,8 @@
     "react-native": "0.69.6",
     "react-native-loading-spinner-overlay": "^3.0.1",
     "react-native-web": "~0.18.7",
-    "typeorm-expo": "^0.2.6"
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

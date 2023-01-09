@@ -3,6 +3,7 @@ module.exports = function(api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
+      'babel-plugin-transform-typescript-metadata',
       [
         "module-resolver",
         {
@@ -22,9 +23,8 @@ module.exports = function(api) {
             "@helpers": "./src/Helpers/index.ts",
             "@hooks": "./src/Hooks/index.ts",
             "@api": "./src/Services/API/index.ts",
-            "@models": "./src/Services/DB/Models/index.ts",
             "@db": "./src/Services/DB/index.ts",
-            "@migartion-list": "./src/Services/DB/Migration/MigrationList/index.ts"
+            "@entities": "./src/Services/DB/Entities/index.ts"
           }
         }
       ]
