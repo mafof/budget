@@ -7,6 +7,7 @@ import { ResultSet, ResultSetError } from 'expo-sqlite';
 
 /**
  * Базовый класс методов для рабьоты с Базой данных
+ * @deprecated - В данном классе больше нет необходимости, т.к. изменена библиотека работы с БД
  */
 class DataBase {
   protected db: SQLite.WebSQLDatabase | null = null;
