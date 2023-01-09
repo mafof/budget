@@ -20,7 +20,8 @@ import {
   WalletList,
   OperationList,
   ProductList,
-  CostProduct
+  CostProduct,
+  Settings
 } from '@entities';
 
 const Tab = createBottomTabNavigator();
@@ -43,7 +44,8 @@ export default function App() {
           WalletList,
           ProductList,
           OperationList,
-          CostProduct
+          CostProduct,
+          Settings
         ],
         synchronize: true,
         type: 'expo'
