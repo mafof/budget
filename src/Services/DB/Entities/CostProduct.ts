@@ -1,6 +1,5 @@
 import { Entity, Column, BaseEntity, JoinTable, OneToOne, PrimaryGeneratedColumn } from 'typeorm/browser';
 
-import OperationList from './OperationList';
 import ProductList from './ProductList';
 
 /**
