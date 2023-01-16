@@ -1,4 +1,6 @@
-import { Entity, Column, BaseEntity } from 'typeorm/browser';
+import { Entity, Column, BaseEntity, OneToMany } from 'typeorm/browser';
+
+import CostProduct from './CostProduct';
 
 /**
  * Таблица реализующая структуру таблицы product_list, содержащая наименования всех продуктов
@@ -18,6 +20,9 @@ class ProductList extends BaseEntity {
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   updated_at!: number;
+
+  @OneToMany(() => CostProduct, costProduct => costProduct.product)
+  costProducts!: CostProduct[];
 }
 
 export default ProductList;

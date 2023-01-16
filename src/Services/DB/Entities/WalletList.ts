@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm/browser';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 'typeorm/browser';
+
+import OperationList from './OperationList';
 
 /**
  * Таблица реализующая структуру таблицы wallet_list, содержащая список кошельков
@@ -29,6 +31,9 @@ class WalletList extends BaseEntity {
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   updated_at!: number;
+
+  @OneToMany(() => OperationList, operation => operation.wallet)
+  operations!: OperationList[];
 }
 
 export default WalletList;

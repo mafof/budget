@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, JoinColumn, OneToOne } from 'typeorm/browser';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne } from 'typeorm/browser';
 import { Max } from 'class-validator';
 
 import WalletList from './WalletList';
@@ -34,9 +34,8 @@ class OperationList extends BaseEntity {
   @Column({ default: () => "0" })
   penny!: number;
 
-  @OneToOne(() => WalletList)
-  @JoinColumn()
-  wallet_id!: WalletList;
+  @ManyToOne(() => WalletList, wallet => wallet.operations)
+  wallet!: WalletList;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   created_at!: number;
