@@ -1,4 +1,4 @@
-import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm/browser';
+import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm/browser';
 
 import ProductList from './ProductList';
 
@@ -18,6 +18,7 @@ class CostProduct extends BaseEntity {
   id!: number;
 
   @ManyToOne(() => ProductList, product => product.costProducts)
+  @JoinColumn({ name: 'product_name' })
   product!: ProductList;
 
   @Column({ default: () => "0" })
