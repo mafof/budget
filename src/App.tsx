@@ -2,6 +2,8 @@ import React, { useEffect, useCallback } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { OpaqueColorValue } from 'react-native';
+import { createConnection } from 'typeorm/browser';
 
 import { 
   MainPage,
@@ -10,11 +12,6 @@ import {
   SettingPage,
   StartSettingPage
 } from '@pages';
-import { OpaqueColorValue } from 'react-native';
-
-import { createConnection } from 'typeorm/browser';
-
-import { DataBase } from '@db';
 
 import { 
   WalletList,
@@ -38,7 +35,7 @@ export default function App() {
     try {
       await createConnection({
         name: 'default',
-        database: 'budgetDB_1.1.db',
+        database: 'budgetDB_1.0.db',
         driver: require('expo-sqlite'),
         entities: [
           WalletList,
@@ -48,7 +45,9 @@ export default function App() {
           Settings
         ],
         synchronize: true,
-        type: 'expo'
+        type: 'expo',
+        logging: 'all',
+        logger: 'debug'
       });
     } catch(err) {
       console.log(err);
@@ -58,7 +57,6 @@ export default function App() {
   useEffect(() => {
     const run = async () => {
       await connect();
-      DataBase.staticExportDB();
     }
 
     run();
