@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-
     "target": "es2015",
     "module": "es2015",
     "allowJs": true,
@@ -28,11 +27,11 @@
     "strict": true,
     "paths": {
       "@pages": ["./src/Pages/index.ts"],
-      "@helpers": ["./src/Helpers/index.ts"],
+      // "@helpers": ["./src/Helpers/index.ts"],
       "@hooks": ["./src/Hooks/index.ts"],
-      "@api": ["./src/Services/API/index.ts"],
-      "@db": ["./src/Services/DB/index.ts"],
-      "@entities": ["./src/Services/DB/Entities/index.ts"]
+      // "@api": ["./src/Services/API/index.ts"],
+      // "@db": ["./src/Services/DB/index.ts"],
+      // "@entities": ["./src/Services/DB/Entities/index.ts"]
     }
   },
 
@@ -43,5 +42,5 @@
   ],
 
   "compileOnSave": false,
-  "extends": "expo/tsconfig.base"
+  "extends": "@tsconfig/react-native/tsconfig.json"
 }

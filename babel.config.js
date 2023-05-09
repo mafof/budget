@@ -1,11 +1,10 @@
-module.exports = function(api) {
+module.exports = api => {
   api.cache(true);
   return {
-    presets: ['babel-preset-expo'],
+    presets: ['module:metro-react-native-babel-preset'],
     plugins: [
-      'babel-plugin-transform-typescript-metadata',
       [
-        "module-resolver",
+        'module-resolver',
         {
           root: ['./src'],
           extensions: [
@@ -16,18 +15,19 @@ module.exports = function(api) {
             '.json',
             '.svg',
             '.jpg',
-            '.png'
+            '.png',
           ],
           alias: {
             "@pages": "./src/Pages/index.ts",
-            "@helpers": "./src/Helpers/index.ts",
+            "@stack": "./src/Pages/Stack/index.ts",
+            // "@helpers": "./src/Helpers/index.ts",
             "@hooks": "./src/Hooks/index.ts",
-            "@api": "./src/Services/API/index.ts",
-            "@db": "./src/Services/DB/index.ts",
-            "@entities": "./src/Services/DB/Entities/index.ts"
-          }
-        }
-      ]
-    ]
+            // "@api": "./src/Services/API/index.ts",
+            // "@db": "./src/Services/DB/index.ts",
+            // "@entities": "./src/Services/DB/Entities/index.ts"
+          },
+        },
+      ],
+    ],
   };
 };
