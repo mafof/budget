@@ -1,4 +1,4 @@
-package com.budget;
+package com.mafof.budget;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
