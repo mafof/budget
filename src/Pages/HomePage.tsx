@@ -1,12 +1,18 @@
-import React, { FC } from 'react'
-import { Text, View } from 'react-native';
+import React, { FC, useEffect, useState } from 'react'
+import { Text, View } from 'react-native'
 
-const MainPage: FC = () => {
+import { LoadingScreen } from '@components'
+
+const HomePage: FC = () => {
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Главная страница</Text>
-    </View>
+    <LoadingScreen isLoaded={isLoaded}>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Главная страница</Text>
+      </View>
+    </LoadingScreen>
   );
 }
 
-export default MainPage;
+export default HomePage

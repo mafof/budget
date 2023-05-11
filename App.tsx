@@ -3,8 +3,8 @@ import { OpaqueColorValue } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { HomePage } from '@pages';
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import { HomePage } from '@pages'
 
 const Tab = createBottomTabNavigator();
 
