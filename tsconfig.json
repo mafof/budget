@@ -29,6 +29,7 @@
       "@pages": ["./src/Pages/index.ts"],
       "@hooks": ["./src/Hooks/index.ts"],
       "@components": ["./src/Components/index.ts"],
+      "@helpers": ["./src/Helpers/index.ts"]
     }
   },
 
