@@ -5,6 +5,7 @@ module.exports = {
     'eslint-config-prettier'
   ],
   rules: {
-    'prettier/prettier': 0
+    'prettier/prettier': 0,
+    'no-console': 'error'
   }
 };
