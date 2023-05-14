@@ -1,15 +1,18 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React, { FC, ReactElement } from 'react'
-import { OpaqueColorValue } from 'react-native';
+import { OpaqueColorValue, StyleSheet, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
-import { BottomTabNavigationOptions, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
+import { createBottomTabNavigator, BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { HomePage } from '@pages'
 
-const Tab = createBottomTabNavigator();
+import { 
+  HomePage,
+  OperationListPage,
+  StatsPage,
+  SettingPage
+} from '@pages'
 
 interface IBaseSettingIcon {
-  focused: boolean,
   color: string | OpaqueColorValue | undefined,
   size: number | undefined
 }
@@ -18,33 +21,37 @@ interface ISettingIcon extends IBaseSettingIcon {
   route: any
 }
 
+const Tab = createBottomTabNavigator()
+
 const App: FC = () => {
-  const getIcon = ({ route, focused, color, size }: ISettingIcon): ReactElement<Icon> => {
+  const getIcon = ({ route, color, size }: ISettingIcon): ReactElement<Icon> => {
     let iconName: any;
     route = route.route;
 
-    switch(route.name) {
+    switch (route.name) {
       case 'Главная':
         iconName = 'home'
-      break;
+        break;
       case 'Операции':
-        iconName = focused
-        ? 'md-list'
-        : 'md-list-outline'
-      break;
+        iconName = 'list-alt'
+        break;
       case 'Статистика':
-        iconName = focused
-        ? 'md-stats-chart'
-        : 'md-stats-chart-outline'
-      break;
+        iconName = 'data-usage'
+        break;
       case 'Настройки':
-        iconName = focused
-        ? 'md-settings'
-        : 'md-settings-outline'
-      break;
+        iconName = 'settings'
+        break;
     }
 
     return <Icon name={iconName} size={size} color={color} />
+  }
+
+  const onPressChangeProfile = () => {
+    Alert.alert('Заголовок', 'Здесь будет функционал смены аккаунтов')
+  }
+
+  const onPressSearch = () => {
+    Alert.alert('Заголовок', 'Здесь будет функционал глобального поиска')
   }
 
   const options: BottomTabNavigationOptions = {
@@ -52,8 +59,8 @@ const App: FC = () => {
       <Icon
         name="account-circle"
         size={30}
-        style={{ marginLeft: 10 }}
-        onPress={() => alert('Здесь будет функционал смены аккаунтов')}
+        style={style.profileIcon}
+        onPress={onPressChangeProfile}
       />
     ),
 
@@ -61,25 +68,55 @@ const App: FC = () => {
       <Icon
         name="search"
         size={30}
-        style={{ marginRight: 10 }}
-        onPress={() => alert('Здесь будет функционал глобального поиска')}
+        style={style.searchIcon}
+        onPress={onPressSearch}
       />
-    )
+    ),
   }
 
   return (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={(route: any) => ({ tabBarIcon: (baseSettingIcon: IBaseSettingIcon) => getIcon({route, ...baseSettingIcon}) })}
+        screenOptions={(route: any) => ({ tabBarIcon: (baseSettingIcon: IBaseSettingIcon) => getIcon({ route, ...baseSettingIcon }) })}
       >
-        <Tab.Screen 
-          name="Главная"
+
+        <Tab.Screen
+          name='Главная'
           component={HomePage}
-          options={options} 
+          options={options}
         />
+
+        <Tab.Screen
+          name='Операции'
+          component={OperationListPage}
+          options={options}
+        />
+
+        <Tab.Screen
+          name='Статистика'
+          component={StatsPage}
+          options={options}
+        />
+
+        <Tab.Screen
+          name='Настройки'
+          component={SettingPage}
+          options={options}
+        />
+
       </Tab.Navigator>
     </NavigationContainer>
   )
 }
+
+const style = StyleSheet.create({
+  profileIcon: {
+    marginLeft: 10
+  },
+
+  searchIcon: {
+    marginRight: 10
+  }
+})
 
 export default App
