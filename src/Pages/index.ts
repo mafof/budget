@@ -1,5 +1,11 @@
 import HomePage from "./HomePage";
+import OperationListPage from "./OperationListPage"
+import StatsPage from "./StatsPage"
+import SettingPage from "./SettingPage"
 
 export {
-  HomePage
+  HomePage,
+  OperationListPage,
+  StatsPage,
+  SettingPage
 }
