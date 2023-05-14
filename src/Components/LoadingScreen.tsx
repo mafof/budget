@@ -7,13 +7,13 @@ interface LoadingScreenProps {
   children: ReactNode
 }
 
-const LoadingScreen: FC<LoadingScreenProps> = (props) => {
+const LoadingScreen: FC<LoadingScreenProps> = ({isLoaded, children}) => {
   return (
     <>
     {
-      props.isLoaded
+      isLoaded
       ?
-      props.children
+      children
       :
       <View style={styles.container}>
         <ActivityIndicator size='large' />
@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
 })
 
 LoadingScreen.propTypes = {
-  isLoaded: PropTypes.bool.isRequired
+  isLoaded: PropTypes.bool.isRequired, 
+  children: PropTypes.node.isRequired
 }
 
 export default LoadingScreen
