@@ -29,7 +29,9 @@
       "@pages": ["./src/Pages/index.ts"],
       "@hooks": ["./src/Hooks/index.ts"],
       "@components": ["./src/Components/index.ts"],
-      "@helpers": ["./src/Helpers/index.ts"]
+      "@helpers": ["./src/Helpers/index.ts"],
+      "@api": ["./src/Services/API/index.ts"],
+      "@entities": ["./src/Services/DB/Entities/index.ts"]
     }
   },
 
