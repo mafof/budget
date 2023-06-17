@@ -1,3 +1,7 @@
+/**
+ * Компонент "Загрузка экрана"
+ */
+
 import React, { FC, ReactNode } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, View, ActivityIndicator } from 'react-native'
