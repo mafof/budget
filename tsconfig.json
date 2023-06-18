@@ -31,7 +31,9 @@
       "@components": ["./src/Components/index.ts"],
       "@helpers": ["./src/Helpers/index.ts"],
       "@api": ["./src/Services/API/index.ts"],
-      "@entities": ["./src/Services/DB/Entities/index.ts"]
+      "@entities": ["./src/Services/DB/Entities/index.ts"],
+      "@money/types": ["./src/Services/Money/Types/index.ts"],
+      "@money/operations": ["./src/Services/Money/Operations/index.ts"],
     }
   },
 
