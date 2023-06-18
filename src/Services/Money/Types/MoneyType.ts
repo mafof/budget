@@ -2,16 +2,16 @@
  * Тип "Деньги"
  * @description Описывает сущность определенного числа денег
  * 
- * @param {Number} integerMoney - Целочисленное значение валюты
- * @param {Number} fractionalMoney - Дробная значение валюты
+ * @param {number} integerMoney - Целочисленное значение валюты
+ * @param {number} fractionalMoney - Дробная значение валюты
  * @param {CurrencyType} currency - Валюта
  */
 
 import CurrencyType from "./CurrencyType";
 
 type MoneyType = {
-  integerMoney: Number
-  fractionalMoney?: Number,
+  integerMoney: number
+  fractionalMoney?: number,
   currency: CurrencyType
 };
 

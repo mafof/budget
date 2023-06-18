@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet, View, ActivityIndicator } from 'react-native'
 
 interface LoadingScreenProps {
-  isLoaded: Boolean,
+  isLoaded: boolean,
   children: ReactNode
 }
 
