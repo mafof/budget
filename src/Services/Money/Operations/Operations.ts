@@ -6,7 +6,7 @@
 import { MoneyType } from "../Types";
 
 class Operations {
-  private baseMoney: MoneyType;
+  protected baseMoney: MoneyType;
 
   constructor(money: MoneyType) {
     this.baseMoney = money;
