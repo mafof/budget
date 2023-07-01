@@ -6,8 +6,8 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm/brow
  * key - ключ настройки
  * value - значение настройки
  */
-@Entity('settings')
-class Settings extends BaseEntity {
+@Entity('setting_list')
+class SettingList extends BaseEntity {
 
   @PrimaryGeneratedColumn()
   id!: number;
@@ -19,4 +19,4 @@ class Settings extends BaseEntity {
   value!: string;
 }
 
-export default Settings;
+export default SettingList;
