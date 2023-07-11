@@ -5,9 +5,9 @@ import WalletList from "./WalletList";
 import SettingList from "./SettingList";
 
 export {
+  SettingList,
+  WalletList,
   OperationList,
   ProductList,
-  CostProduct,
-  WalletList,
-  SettingList
+  CostProduct
 }

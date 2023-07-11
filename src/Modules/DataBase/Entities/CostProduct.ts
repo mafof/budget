@@ -1,6 +1,6 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm/browser';
 
-import ProductList from './ProductList';
+import type ProductList from './ProductList';
 
 /**
  * Таблица реализующая структуру таблицы cost_product, содержащая ценники на продукты с временем момента их ввода (created_at)
@@ -17,8 +17,8 @@ class CostProduct extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => ProductList, product => product.costProducts)
-  @JoinColumn({ name: 'product_name' })
+  @ManyToOne('product_list', 'costProducts')
+  @JoinColumn({ name: 'product_id' })
   product!: ProductList;
 
   @Column({ default: () => "0" })

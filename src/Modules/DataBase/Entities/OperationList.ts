@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn } from 'typeorm/browser';
 import { Max } from 'class-validator';
 
-import WalletList from './WalletList';
+import type WalletList from './WalletList';
 
 /**
  * Таблица реализующая структуру таблицы operation_list, содержащая все операции по счету
@@ -34,7 +34,7 @@ class OperationList extends BaseEntity {
   @Column({ default: () => "0" })
   penny!: number;
 
-  @ManyToOne(() => WalletList, wallet => wallet.operations)
+  @ManyToOne('wallet_list', 'operations')
   @JoinColumn({ name: 'wallet_id' })
   wallet!: WalletList;
 
