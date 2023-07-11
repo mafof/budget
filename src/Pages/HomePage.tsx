@@ -8,6 +8,8 @@ import {
 import { useConvertMoney } from '@hooks';
 import { MoneyOperation } from '@helpers';
 
+import DataBase from 'src/Modules/DataBase/DataBase.ts';
+
 let timeOut: NodeJS.Timer | null = null;
 
 const HomePage: FC = () => {
@@ -20,6 +22,8 @@ const HomePage: FC = () => {
 
   // Получение баланса на тек. день =>
   useEffect(() => {
+    new DataBase();
+
     // Временное решение =>
     setTimeout(() => {
       setBalanceDay(850);
