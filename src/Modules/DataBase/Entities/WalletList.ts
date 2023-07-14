@@ -1,12 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 'typeorm/browser';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne, JoinColumn } from 'typeorm/browser';
 
 import type OperationList from './OperationList';
+import type CurrencyList from './CurrencyList';
 
 /**
  * Таблица реализующая структуру таблицы wallet_list, содержащая список кошельков
  * @description Стурктура таблицы =>
  * name - Наименование кошелька
- * currency - валюта (по умолчанию RUB)
+ * currency - ID Валюты
  * is_default - Кошелек по умолчанию
  * created_at - Время создания
  * updated_at - Время обновления
@@ -20,8 +21,9 @@ class WalletList extends BaseEntity {
   @Column()
   name!: string;
 
-  @Column({ default: () => "'RUB'" })
-  currency!: string;
+  @ManyToOne('currency_list', 'wallets', { nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'currency_id' })
+  currency!: CurrencyList;
 
   @Column({ default: () => false })
   is_default!: boolean

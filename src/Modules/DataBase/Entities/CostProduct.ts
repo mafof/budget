@@ -1,13 +1,18 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm/browser';
 
 import type ProductList from './ProductList';
+import type OperationList from './OperationList';
+import type ShopList from './ShopList';
 
 /**
  * Таблица реализующая структуру таблицы cost_product, содержащая ценники на продукты с временем момента их ввода (created_at)
  * @description Стурктура таблицы =>
- * product_id - ID продукта
+ * operation - ID операции
+ * product - ID продукта
+ * shop - ID магазина
  * money - Кол-во рублей/долларов/евро/... (стоимость в данной операции)
  * penny - Кол-во копеек/центов/евро цент/... (стоимость в данной операции)
+ * is_sync - Добавлена ли запись автоматически при синхронизации с чеком ФНС
  * created_at - Время создания
  * updated_at - Время обновления
  */
@@ -17,15 +22,26 @@ class CostProduct extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne('product_list', 'costProducts')
+  @ManyToOne('operation_list', 'costProducts', { nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'operation_id' })
+  operation!: OperationList;
+
+  @ManyToOne('product_list', 'costProducts', { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'product_id' })
   product!: ProductList;
+
+  @ManyToOne('shop_list', 'costProducts', { nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'shop_id' })
+  shop!: ShopList;
 
   @Column({ default: () => "0" })
   money!: number;
 
   @Column({ default: () => "0" })
   penny!: number;
+
+  @Column()
+  is_sync!: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   created_at!: number;

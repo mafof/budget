@@ -1,7 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn } from 'typeorm/browser';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne, JoinColumn } from 'typeorm/browser';
 import { Max } from 'class-validator';
 
 import type WalletList from './WalletList';
+import type CategoryList from './CategoryList';
+import type CostProduct from './CostProduct';
 
 /**
  * Таблица реализующая структуру таблицы operation_list, содержащая все операции по счету
@@ -10,7 +12,9 @@ import type WalletList from './WalletList';
  * type - Тип операции (0 - расход, 1 - доход)
  * money - Кол-во рублей/долларов/евро/... (в данной операции)
  * penny - Кол-во копеек/центов/евро цент/... (в данной операции)
- * wallet_id - Кошелек
+ * wallet - ID Кошелька
+ * category - ID Категории
+ * is_sync - Добавлена ли запись автоматически при синхронизации с чеком ФНС
  * created_at - Время создания
  * updated_at - Время обновления
  */
@@ -34,15 +38,25 @@ class OperationList extends BaseEntity {
   @Column({ default: () => "0" })
   penny!: number;
 
-  @ManyToOne('wallet_list', 'operations')
+  @ManyToOne('wallet_list', 'operations', { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'wallet_id' })
   wallet!: WalletList;
+
+  @ManyToOne('category_list', 'operations', { nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'category_id' })
+  category!: CategoryList;
+
+  @Column()
+  is_sync!: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   created_at!: number;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   updated_at!: number;
+  
+  @OneToMany('cost_product', 'operation_id')
+  costProducts!: CostProduct[];
 }
 
 export default OperationList;

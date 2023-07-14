@@ -6,6 +6,7 @@ import type CostProduct from './CostProduct';
  * Таблица реализующая структуру таблицы product_list, содержащая наименования всех продуктов
  * @description Стурктура таблицы =>
  * name - Наименование продукта (является уникальным ключом)
+ * is_sync - Добавлена ли запись автоматически при синхронизации с чеком ФНС
  * created_at - Время создания
  * updated_at - Время обновления
  */
@@ -14,6 +15,9 @@ class ProductList extends BaseEntity {
 
   @Column({ primary: true })
   name!: string;
+
+  @Column()
+  is_sync!: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   created_at!: number;
