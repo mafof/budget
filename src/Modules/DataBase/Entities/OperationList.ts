@@ -26,18 +26,18 @@ class OperationList extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ nullable: false, default: () => 0 })
   @Max(1)
   create_type!: number;
   
-  @Column()
+  @Column({ nullable: false })
   @Max(1)
   type!: number;
   
-  @Column({ default: () => "0" })
+  @Column({ nullable: false, default: () => "0" })
   money!: number;
 
-  @Column({ default: () => "0" })
+  @Column({ nullable: false, default: () => "0" })
   penny!: number;
 
   @ManyToOne('wallet_list', 'operations', { nullable: false, onDelete: 'CASCADE' })

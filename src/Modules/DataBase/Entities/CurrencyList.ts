@@ -8,8 +8,8 @@ import type WalletList from './WalletList';
  * code - Код валюты (строковый)
  * number - Номер валюты (числовой)
  * name - Наименование валюты
- * nameIntegerCurrency - Человечкское наименование целочисленной части валюты
- * nameFractionalCurrency - Человечесоке наименование дробной часть валюты
+ * nameIntegerCurrency - Человечкское наименование целочисленной части валюты (сокращенно)
+ * nameFractionalCurrency - Человечесоке наименование дробной часть валюты (сокращенно)
  * created_at - Время создания
  * updated_at - Время обновления
  */
@@ -18,16 +18,16 @@ class CurrencyList extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ nullable: false, unique: true })
   code!: string;
 
-  @Column()
+  @Column({ nullable: false, unique: true })
   number!: number;
 
-  @Column()
+  @Column({ nullable: false, unique: true })
   name!: string;
 
-  @Column()
+  @Column({ nullable: false })
   nameIntegerCurrency!: string;
 
   @Column({ nullable: true, default: () => null })

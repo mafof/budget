@@ -18,7 +18,7 @@ class WalletList extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ nullable: false })
   name!: string;
 
   @ManyToOne('currency_list', 'wallets', { nullable: false, onDelete: 'CASCADE' })

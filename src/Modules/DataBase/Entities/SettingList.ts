@@ -12,10 +12,10 @@ class SettingList extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ nullable: false, unique: true })
   key!: string;
 
-  @Column()
+  @Column({ nullable: true })
   value!: string;
 }
 

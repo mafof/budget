@@ -14,7 +14,7 @@ class CategoryList extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ nullable: false, unique: true })
   name!: string;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
