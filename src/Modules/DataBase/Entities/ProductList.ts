@@ -16,7 +16,7 @@ class ProductList extends BaseEntity {
   @Column({ primary: true })
   name!: string;
 
-  @Column()
+  @Column({ nullable: false, default: () => false })
   is_sync!: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })

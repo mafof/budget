@@ -25,8 +25,8 @@ class WalletList extends BaseEntity {
   @JoinColumn({ name: 'currency_id' })
   currency!: CurrencyList;
 
-  @Column({ default: () => false })
-  is_default!: boolean
+  @Column({ nullable: false, default: () => false })
+  is_sync!: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   created_at!: number;

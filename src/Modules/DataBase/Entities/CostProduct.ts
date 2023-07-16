@@ -40,7 +40,7 @@ class CostProduct extends BaseEntity {
   @Column({ default: () => "0" })
   penny!: number;
 
-  @Column()
+  @Column({ nullable: false, default: () => false })
   is_sync!: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })

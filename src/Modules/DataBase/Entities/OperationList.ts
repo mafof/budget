@@ -46,7 +46,7 @@ class OperationList extends BaseEntity {
   @JoinColumn({ name: 'category_id' })
   category!: CategoryList;
 
-  @Column()
+  @Column({ nullable: false, default: () => false })
   is_sync!: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
