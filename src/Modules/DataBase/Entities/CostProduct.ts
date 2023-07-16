@@ -2,14 +2,12 @@ import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToOne, JoinColu
 
 import type ProductList from './ProductList';
 import type OperationList from './OperationList';
-import type ShopList from './ShopList';
 
 /**
  * Таблица реализующая структуру таблицы cost_product, содержащая ценники на продукты с временем момента их ввода (created_at)
  * @description Стурктура таблицы =>
  * operation - ID операции
  * product - ID продукта
- * shop - ID магазина
  * money - Кол-во рублей/долларов/евро/... (стоимость в данной операции)
  * penny - Кол-во копеек/центов/евро цент/... (стоимость в данной операции)
  * is_sync - Добавлена ли запись автоматически при синхронизации с чеком ФНС
@@ -30,14 +28,10 @@ class CostProduct extends BaseEntity {
   @JoinColumn({ name: 'product_id' })
   product!: ProductList;
 
-  @ManyToOne('shop_list', 'costProducts', { nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'shop_id' })
-  shop!: ShopList;
-
-  @Column({ default: () => "0" })
+  @Column({ default: () => 0 })
   money!: number;
 
-  @Column({ default: () => "0" })
+  @Column({ default: () => 0 })
   penny!: number;
 
   @Column({ nullable: false, default: () => false })

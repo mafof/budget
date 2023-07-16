@@ -1,6 +1,6 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToMany } from 'typeorm/browser';
 
-import type CostProduct from './OperationList';
+import type OperationList from './OperationList';
 
 /**
  * Таблица реализующая структуру таблицы shop_list, содержащая список магазинов
@@ -15,7 +15,7 @@ class ShopList extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ unique: true, nullable: false })
   name!: string;
 
   @Column({ nullable: false, default: () => false })
@@ -27,8 +27,8 @@ class ShopList extends BaseEntity {
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   updated_at!: number;
 
-  @OneToMany('cost_product', 'shop_id')
-  costProducts!: CostProduct[];
+  @OneToMany('operation_list', 'shop_id')
+  operations!: OperationList[];
 }
 
 export default ShopList;

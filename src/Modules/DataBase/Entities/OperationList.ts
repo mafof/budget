@@ -4,6 +4,7 @@ import { Max } from 'class-validator';
 import type WalletList from './WalletList';
 import type CategoryList from './CategoryList';
 import type CostProduct from './CostProduct';
+import type ShopList from './ShopList';
 
 /**
  * Таблица реализующая структуру таблицы operation_list, содержащая все операции по счету
@@ -14,6 +15,7 @@ import type CostProduct from './CostProduct';
  * penny - Кол-во копеек/центов/евро цент/... (в данной операции)
  * wallet - ID Кошелька
  * category - ID Категории
+ * shop - ID магазина
  * is_sync - Добавлена ли запись автоматически при синхронизации с чеком ФНС
  * created_at - Время создания
  * updated_at - Время обновления
@@ -42,9 +44,13 @@ class OperationList extends BaseEntity {
   @JoinColumn({ name: 'wallet_id' })
   wallet!: WalletList;
 
-  @ManyToOne('category_list', 'operations', { nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne('category_list', 'operations', { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'category_id' })
   category!: CategoryList;
+
+  @ManyToOne('shop_list', 'operations', { nullable: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'shop_id' })
+  shop!: ShopList;
 
   @Column({ nullable: false, default: () => false })
   is_sync!: Boolean
