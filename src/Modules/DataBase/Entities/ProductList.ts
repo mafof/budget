@@ -1,4 +1,4 @@
-import { Entity, Column, BaseEntity, OneToMany } from 'typeorm/browser';
+import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToMany } from 'typeorm/browser';
 
 import type CostProduct from './CostProduct';
 
@@ -12,8 +12,10 @@ import type CostProduct from './CostProduct';
  */
 @Entity('product_list')
 class ProductList extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-  @Column({ primary: true })
+  @Column({ unique: true, nullable: false })
   name!: string;
 
   @Column({ nullable: false, default: () => false })
