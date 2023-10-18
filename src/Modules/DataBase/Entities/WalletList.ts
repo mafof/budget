@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOn
 
 import type OperationList from './OperationList';
 import type CurrencyList from './CurrencyList';
+import type { IWallet } from '@entities/types';
 
 /**
  * Таблица реализующая структуру таблицы wallet_list, содержащая список кошельков
@@ -13,7 +14,7 @@ import type CurrencyList from './CurrencyList';
  * updated_at - Время обновления
  */
 @Entity('wallet_list')
-class WalletList extends BaseEntity {
+class WalletList extends BaseEntity implements IWallet {
 
   @PrimaryGeneratedColumn()
   id!: number;
@@ -26,7 +27,7 @@ class WalletList extends BaseEntity {
   currency!: CurrencyList;
 
   @Column({ nullable: false, default: () => false })
-  is_sync!: Boolean
+  is_sync?: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   created_at!: number;

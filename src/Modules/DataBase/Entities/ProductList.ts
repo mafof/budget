@@ -1,6 +1,7 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToMany } from 'typeorm/browser';
 
 import type CostProduct from './CostProduct';
+import type { IProduct } from '@entities/types';
 
 /**
  * Таблица реализующая структуру таблицы product_list, содержащая наименования всех продуктов
@@ -11,7 +12,7 @@ import type CostProduct from './CostProduct';
  * updated_at - Время обновления
  */
 @Entity('product_list')
-class ProductList extends BaseEntity {
+class ProductList extends BaseEntity implements IProduct {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -19,7 +20,7 @@ class ProductList extends BaseEntity {
   name!: string;
 
   @Column({ nullable: false, default: () => false })
-  is_sync!: Boolean
+  is_sync?: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   created_at!: number;

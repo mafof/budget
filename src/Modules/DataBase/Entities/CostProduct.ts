@@ -3,6 +3,8 @@ import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToOne, JoinColu
 import type ProductList from './ProductList';
 import type OperationList from './OperationList';
 
+import type { ICostProduct } from '@entities/types';
+
 /**
  * Таблица реализующая структуру таблицы cost_product, содержащая ценники на продукты с временем момента их ввода (created_at)
  * @description Стурктура таблицы =>
@@ -15,7 +17,7 @@ import type OperationList from './OperationList';
  * updated_at - Время обновления
  */
 @Entity('cost_product')
-class CostProduct extends BaseEntity {
+class CostProduct extends BaseEntity implements ICostProduct {
   
   @PrimaryGeneratedColumn()
   id!: number;
@@ -35,7 +37,7 @@ class CostProduct extends BaseEntity {
   penny!: number;
 
   @Column({ nullable: false, default: () => false })
-  is_sync!: Boolean
+  is_sync?: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   created_at!: number;

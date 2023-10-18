@@ -1,5 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm/browser';
 
+import type { ISetting } from '@entities/types';
+
 /**
  * Таблица реализующая структуру таблицы settings, содержащая список настроек приложения
  * @description Стурктура таблицы =>
@@ -7,7 +9,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm/brow
  * value - значение настройки
  */
 @Entity('setting_list')
-class SettingList extends BaseEntity {
+class SettingList extends BaseEntity implements ISetting {
 
   @PrimaryGeneratedColumn()
   id!: number;
@@ -16,7 +18,7 @@ class SettingList extends BaseEntity {
   key!: string;
 
   @Column({ nullable: true })
-  value!: string;
+  value?: string;
 }
 
 export default SettingList;

@@ -1,6 +1,7 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToMany } from 'typeorm/browser';
 
 import type OperationList from './OperationList';
+import type { IShop } from '@entities/types';
 
 /**
  * Таблица реализующая структуру таблицы shop_list, содержащая список магазинов
@@ -11,7 +12,7 @@ import type OperationList from './OperationList';
  * updated_at - Время обновления
  */
 @Entity('shop_list')
-class ShopList extends BaseEntity {
+class ShopList extends BaseEntity implements IShop {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -19,7 +20,7 @@ class ShopList extends BaseEntity {
   name!: string;
 
   @Column({ nullable: false, default: () => false })
-  is_sync!: Boolean
+  is_sync?: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   created_at!: number;

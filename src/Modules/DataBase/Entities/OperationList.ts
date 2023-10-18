@@ -6,10 +6,11 @@ import type CategoryList from './CategoryList';
 import type CostProduct from './CostProduct';
 import type ShopList from './ShopList';
 
+import type { IOperation } from '@entities/types';
+
 /**
  * Таблица реализующая структуру таблицы operation_list, содержащая все операции по счету
  * @description Стурктура таблицы =>
- * create_type - Тип создания валюты (0 - создана пользователем, 1 - создана автоматически через скан QR кода)
  * type - Тип операции (0 - расход, 1 - доход)
  * money - Кол-во рублей/долларов/евро/... (в данной операции)
  * penny - Кол-во копеек/центов/евро цент/... (в данной операции)
@@ -21,14 +22,10 @@ import type ShopList from './ShopList';
  * updated_at - Время обновления
  */
 @Entity('operation_list')
-class OperationList extends BaseEntity {
+class OperationList extends BaseEntity implements IOperation {
 
   @PrimaryGeneratedColumn()
   id!: number;
-
-  @Column({ nullable: false, default: () => 0 })
-  @Max(1)
-  create_type!: number;
   
   @Column({ nullable: false })
   @Max(1)
@@ -46,14 +43,14 @@ class OperationList extends BaseEntity {
 
   @ManyToOne('category_list', 'operations', { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'category_id' })
-  category!: CategoryList;
+  category?: CategoryList;
 
   @ManyToOne('shop_list', 'operations', { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'shop_id' })
-  shop!: ShopList;
+  shop?: ShopList;
 
   @Column({ nullable: false, default: () => false })
-  is_sync!: Boolean
+  is_sync?: Boolean
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   created_at!: number;
