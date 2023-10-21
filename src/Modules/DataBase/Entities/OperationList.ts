@@ -12,8 +12,8 @@ import type { Operation } from '@entities/types';
  * Таблица реализующая структуру таблицы operation_list, содержащая все операции по счету
  * @description Стурктура таблицы =>
  * type - Тип операции (0 - расход, 1 - доход)
- * money - Кол-во рублей/долларов/евро/... (в данной операции)
- * penny - Кол-во копеек/центов/евро цент/... (в данной операции)
+ * integerMoney - Целочисленное значение валюты
+ * fractionalMoney - Дробная значение валюты
  * wallet - ID Кошелька
  * category - ID Категории
  * shop - ID магазина
@@ -31,12 +31,12 @@ class OperationList extends BaseEntity implements Operation {
   @Column({ nullable: false })
   @Max(1)
   type!: number;
-  
-  @Column({ nullable: false, default: () => "0" })
-  money!: number;
 
   @Column({ nullable: false, default: () => "0" })
-  penny!: number;
+  integerMoney!: number;
+
+  @Column({ nullable: false, default: () => "0" })
+  fractionalMoney!: number;
 
   @ManyToOne('wallet_list', 'operations', { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'wallet_id' })

@@ -10,8 +10,8 @@ import type { CostProduct as EntityCostProduct } from '@entities/types';
  * @description Стурктура таблицы =>
  * operation - ID операции
  * product - ID продукта
- * money - Кол-во рублей/долларов/евро/... (стоимость в данной операции)
- * penny - Кол-во копеек/центов/евро цент/... (стоимость в данной операции)
+ * integerMoney - Целочисленное значение валюты
+ * fractionalMoney - Дробная значение валюты
  * is_synced - Синхронизирована ли запись с сервисом ФНС
  * is_add_automatic - Добавлен ли элемент автоматически (системой)
  * created_at - Время создания
@@ -32,10 +32,10 @@ class CostProduct extends BaseEntity implements EntityCostProduct {
   product!: ProductList;
 
   @Column({ default: () => 0 })
-  money!: number;
+  integerMoney!: number;
 
   @Column({ default: () => 0 })
-  penny!: number;
+  fractionalMoney!: number;
 
   @Column({ nullable: false, default: () => false })
   is_synced?: boolean;

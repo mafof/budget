@@ -8,8 +8,8 @@ import type Shop from "./Shop";
  * Сущность "Операция"
  * Описание свойств =>
  * type - Тип операции (0 - расход, 1 - доход)
- * money - Кол-во рублей/долларов/евро/... (в данной операции)
- * penny - Кол-во копеек/центов/евро цент/... (в данной операции)
+ * integerMoney - Целочисленное значение валюты
+ * fractionalMoney - Дробная значение валюты
  * wallet - ID Кошелька
  * category - ID Категории
  * shop - ID магазина
@@ -18,8 +18,8 @@ import type Shop from "./Shop";
  */
 type Operation = Entity & {
   type: number;
-  money: number;
-  penny: number;
+  integerMoney: number;
+  fractionalMoney: number;
   wallet: Wallet;
   category?: Category;
   shop?: Shop;
