@@ -38,10 +38,10 @@ class WalletList extends BaseEntity implements Wallet {
   is_add_automatic?: boolean;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
-  created_at!: number;
+  created_at?: number;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
-  updated_at!: number;
+  updated_at?: number;
 
   @OneToMany('operation_list', 'wallet_id')
   operations!: OperationList[];

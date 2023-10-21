@@ -35,10 +35,10 @@ class CurrencyList extends BaseEntity implements Currency {
   nameFractionalCurrency?: string;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
-  created_at!: number;
+  created_at?: number;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
-  updated_at!: number;
+  updated_at?: number;
 
   @OneToMany('wallet_list', 'currency_id')
   wallets!: WalletList[]

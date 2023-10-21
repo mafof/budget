@@ -44,10 +44,10 @@ class CostProduct extends BaseEntity implements EntityCostProduct {
   is_add_automatic?: boolean;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
-  created_at!: number;
+  created_at?: number;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
-  updated_at!: number;
+  updated_at?: number;
 }
 
 export default CostProduct;
