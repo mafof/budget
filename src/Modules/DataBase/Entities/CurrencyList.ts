@@ -1,7 +1,7 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToMany } from 'typeorm/browser';
 
 import type WalletList from './WalletList';
-import type { ICurrency } from '@entities/types';
+import type { Currency } from '@entities/types';
 
 /**
  * Таблица реализующая структуру таблицы currency_list, содержащая список валют
@@ -15,7 +15,7 @@ import type { ICurrency } from '@entities/types';
  * updated_at - Время обновления
  */
 @Entity('currency_list')
-class CurrencyList extends BaseEntity implements ICurrency {
+class CurrencyList extends BaseEntity implements Currency {
   @PrimaryGeneratedColumn()
   id!: number;
 

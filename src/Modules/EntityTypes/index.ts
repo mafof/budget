@@ -1,19 +1,19 @@
-import IShop from "./IShop";
-import ICategory from "./ICategory";
-import IProduct from "./IProduct";
-import ISetting from "./ISetting";
-import IWallet from "./IWallet";
-import ICurrency from "./ICurrency";
-import IOperation from "./IOperation";
-import ICostProduct from "./ICostProduct";
+import Shop from "./Shop";
+import Category from "./Category";
+import Product from "./Product";
+import Setting from "./Setting";
+import Wallet from "./Wallet";
+import Currency from "./Currency";
+import Operation from "./Operation";
+import CostProduct from "./CostProduct";
 
 export type {  
-  IShop,
-  ICategory,
-  IProduct,
-  ISetting,
-  IWallet,
-  ICurrency,
-  IOperation,
-  ICostProduct
+  Shop,
+  Category,
+  Product,
+  Setting,
+  Wallet,
+  Currency,
+  Operation,
+  CostProduct
 }

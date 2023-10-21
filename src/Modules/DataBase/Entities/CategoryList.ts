@@ -1,7 +1,7 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToMany } from 'typeorm/browser';
 
 import type OperationList from './OperationList';
-import type { ICategory } from '@entities/types';
+import type { Category } from '@entities/types';
 
 /**
  * Таблица реализующая структуру таблицы category_list, содержащая список категорий
@@ -11,7 +11,7 @@ import type { ICategory } from '@entities/types';
  * updated_at - Время обновления
  */
 @Entity('category_list')
-class CategoryList extends BaseEntity implements ICategory {
+class CategoryList extends BaseEntity implements Category {
   @PrimaryGeneratedColumn()
   id!: number;
 

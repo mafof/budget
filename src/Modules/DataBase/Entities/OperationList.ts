@@ -6,7 +6,7 @@ import type CategoryList from './CategoryList';
 import type CostProduct from './CostProduct';
 import type ShopList from './ShopList';
 
-import type { IOperation } from '@entities/types';
+import type { Operation } from '@entities/types';
 
 /**
  * Таблица реализующая структуру таблицы operation_list, содержащая все операции по счету
@@ -17,12 +17,13 @@ import type { IOperation } from '@entities/types';
  * wallet - ID Кошелька
  * category - ID Категории
  * shop - ID магазина
- * is_sync - Добавлена ли запись автоматически при синхронизации с чеком ФНС
+ * is_synced - Синхронизирована ли запись с сервисом ФНС
+ * is_add_automatic - Добавлен ли элемент автоматически (системой)
  * created_at - Время создания
  * updated_at - Время обновления
  */
 @Entity('operation_list')
-class OperationList extends BaseEntity implements IOperation {
+class OperationList extends BaseEntity implements Operation {
 
   @PrimaryGeneratedColumn()
   id!: number;
@@ -50,7 +51,10 @@ class OperationList extends BaseEntity implements IOperation {
   shop?: ShopList;
 
   @Column({ nullable: false, default: () => false })
-  is_sync?: Boolean
+  is_synced?: boolean;
+
+  @Column({ nullable: false, default: () => false })
+  is_add_automatic?: boolean;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
   created_at!: number;
