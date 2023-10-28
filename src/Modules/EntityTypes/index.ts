@@ -1,3 +1,4 @@
+import Entity from "./Entity";
 import Shop from "./Shop";
 import Category from "./Category";
 import Product from "./Product";
@@ -7,7 +8,8 @@ import Currency from "./Currency";
 import Operation from "./Operation";
 import CostProduct from "./CostProduct";
 
-export type {  
+export type {
+  Entity,
   Shop,
   Category,
   Product,
