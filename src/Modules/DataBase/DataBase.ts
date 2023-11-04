@@ -14,7 +14,7 @@ class DataBase {
   constructor () {
     this.database = new DataSource({
       type: 'react-native',
-      database: this.getPath('0_0_1'),
+      database: this.getPath('0_0_1__test'),
       location: 'default',
       synchronize: true,
       logging: 'all',

@@ -1,8 +1,5 @@
 import type Entity from "./Entity";
 
-import type ProductList from "./Product";
-import type Operation from "./Operation";
-
 /**
  * Сущность "Цена продукта"
  * Описание свойств =>
@@ -14,8 +11,8 @@ import type Operation from "./Operation";
  * is_add_automatic - Добавлен ли элемент автоматически (системой)
  */
 type CostProduct = Entity & {
-  operation: Operation;
-  product: ProductList;
+  operation_id: number;
+  product_id: number;
   integerMoney: number
   fractionalMoney?: number,
   is_synced?: boolean;

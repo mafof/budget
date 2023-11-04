@@ -1,10 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, ManyToOne, JoinColumn } from 'typeorm/browser';
 import { Max } from 'class-validator';
 
-import type WalletList from './WalletList';
-import type CategoryList from './CategoryList';
 import type CostProduct from './CostProduct';
-import type ShopList from './ShopList';
 
 import type { Operation } from '@entities/types';
 
@@ -14,9 +11,9 @@ import type { Operation } from '@entities/types';
  * type - Тип операции (0 - расход, 1 - доход)
  * integerMoney - Целочисленное значение валюты
  * fractionalMoney - Дробная значение валюты
- * wallet - ID Кошелька
- * category - ID Категории
- * shop - ID магазина
+ * wallet_id - ID Кошелька
+ * category_id - ID Категории
+ * shop_id - ID магазина
  * is_synced - Синхронизирована ли запись с сервисом ФНС
  * is_add_automatic - Добавлен ли элемент автоматически (системой)
  * created_at - Время создания
@@ -40,15 +37,15 @@ class OperationList extends BaseEntity implements Operation {
 
   @ManyToOne('wallet_list', 'operations', { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'wallet_id' })
-  wallet!: WalletList;
+  wallet_id!: number;
 
   @ManyToOne('category_list', 'operations', { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'category_id' })
-  category?: CategoryList;
+  category_id?: number;
 
   @ManyToOne('shop_list', 'operations', { nullable: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'shop_id' })
-  shop?: ShopList;
+  shop_id?: number;
 
   @Column({ nullable: false, default: () => false })
   is_synced?: boolean;

@@ -1,15 +1,12 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm/browser';
 
-import type ProductList from './ProductList';
-import type OperationList from './OperationList';
-
 import type { CostProduct as EntityCostProduct } from '@entities/types';
 
 /**
  * Таблица реализующая структуру таблицы cost_product, содержащая ценники на продукты с временем момента их ввода (created_at)
  * @description Стурктура таблицы =>
- * operation - ID операции
- * product - ID продукта
+ * operation_id - ID операции
+ * product_id - ID продукта
  * integerMoney - Целочисленное значение валюты
  * fractionalMoney - Дробная значение валюты
  * is_synced - Синхронизирована ли запись с сервисом ФНС
@@ -25,11 +22,11 @@ class CostProduct extends BaseEntity implements EntityCostProduct {
 
   @ManyToOne('operation_list', 'costProducts', { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'operation_id' })
-  operation!: OperationList;
+  operation_id!: number;
 
   @ManyToOne('product_list', 'costProducts', { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'product_id' })
-  product!: ProductList;
+  product_id!: number;
 
   @Column({ default: () => 0 })
   integerMoney!: number;
