@@ -9,9 +9,11 @@ import * as Entities from './Entities/index'
  */
 
 class DataBase {
-  private database: DataSource;
 
-  constructor () {
+  private static instance: DataBase;
+  public database: DataSource;
+
+  private constructor () {
     this.database = new DataSource({
       type: 'react-native',
       database: this.getPath('0_0_1__test'),
@@ -21,19 +23,18 @@ class DataBase {
       logger: 'advanced-console',
       entities: Object.values(Entities)
     });
-
-    this.database.initialize();
   }
 
   private getPath(name: string): string {
     return `${RNFS.DownloadDirectoryPath}/${name}.db`;
   }
 
-  /**
-   * @deprecated
-   */
-  public static getDataBase(): DataSource | null {
-    return null;
+  public static getInstance(): DataBase {
+    if(!DataBase.instance) {
+      DataBase.instance = new DataBase();
+    }
+
+    return DataBase.instance;
   }
 }
 

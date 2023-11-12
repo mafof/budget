@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, { FC, ReactElement } from 'react'
+import React, { FC, ReactElement, useEffect } from 'react'
 import { OpaqueColorValue, StyleSheet, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator, BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
@@ -11,6 +11,8 @@ import {
   StatsPage,
   SettingPage
 } from '@pages'
+
+import DataBase from '@modules/database';
 
 interface IBaseSettingIcon {
   color: string | OpaqueColorValue | undefined,
@@ -24,6 +26,19 @@ interface ISettingIcon extends IBaseSettingIcon {
 const Tab = createBottomTabNavigator()
 
 const App: FC = () => {
+
+  useEffect(() => {
+    const initGlobalVariable = async () => {
+      // Создаем соединение с БД =>
+      const db = DataBase.getInstance();
+      if(!db.database.isInitialized) {
+        await db.database.initialize();
+      }
+    }
+
+    initGlobalVariable();
+  }, []);
+
   const getIcon = ({ route, color, size }: ISettingIcon): ReactElement<Icon> => {
     let iconName: any;
     route = route.route;
