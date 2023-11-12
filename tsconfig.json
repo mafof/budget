@@ -31,6 +31,7 @@
       "@components": ["./src/Components/index.ts"],
       "@helpers": ["./src/Helpers/index.ts"],
       "@api": ["./src/Modules/API/index.ts"],
+      "@modules/database": ["./src/Modules/DataBase/DataBase.ts"],
       "@entities": ["./src/Modules/DataBase/Entities/index.ts"],
       "@entities/types": ["./src/Modules/EntityTypes/index.ts"],
       "@money/types": ["./src/Modules/Money/Types/index.ts"],
@@ -43,7 +44,7 @@
     "build",
     "node_modules"
   ],
-
+  
   "compileOnSave": false,
   "extends": "@tsconfig/react-native/tsconfig.json"
 }
