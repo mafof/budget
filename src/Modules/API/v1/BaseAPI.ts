@@ -1,22 +1,19 @@
 /**
- * Базовый класс реализации локального API приложения
- * @description
- * Данный базовый класс должны наследовать абсолютно все дочерние классы, в нем реализованы все стандартные операции над данными,
- * допускается создание дополнительных методов в классе потомков
+ * Базовый класс реализующий стандартный список CRUD операций с БД 
  */
 
 import DataBase from "@modules/database";
 import { Entity } from "@entities/types";
 import { BaseEntity } from "typeorm/browser";
 
-abstract class BaseAPI {
-  public modelName: BaseEntity | null = null;
+class BaseAPI {
 
-  abstract create(obj: Entity): Promise<Entity>;
-  abstract update(obj: Entity): Promise<Entity>;
-  abstract delete(id: number): Promise<boolean>;
-  abstract get(id: number): Promise<Entity | null>;
-  //abstract find(obj: Entity): Promise<Entity[]>;
+  /**
+   * Исключенные свойства не попадающие 
+   */
+  public static excludeField: Array<string> = [
+    'operations'
+  ];
 
   /**
    * Функция создания записи
@@ -24,18 +21,21 @@ abstract class BaseAPI {
    * @param { BaseEntity } entity - Заранее созданный объект модели
    * @returns { Promise<Entity> } - Возвращает созданный элемент с присвоенным ID
    */
-  protected async _create(obj: Entity, entity: BaseEntity): Promise<Entity> {
-    if(obj.id !== undefined || obj.id !== null) {
-      throw new Error("Property ID already definity. use method 'update' for updating record");
-    }
-
+  public static async create(obj: Entity, entity: BaseEntity): Promise<Entity> {
+    // Заполнение в модель поступающих данных =>
     for(let key in obj) {
+      if(key === 'id') continue;      
       entity[key] = obj[key];
     }
 
     const res = await entity.save();
-    obj.id = BaseEntity.getId(res);
 
+    for(let key in res) {
+      if(typeof res[key] !== 'function' && !this.excludeField.includes(key)) {
+        obj[key] = res[key]
+      }
+    }    
+    
     return obj;
   }
 
@@ -45,7 +45,7 @@ abstract class BaseAPI {
    * @param { BaseEntity } entity - Заранее созданный объект модели
    * @returns { Promise<Entity> } - Возвращает обновленный элемент
    */
-  protected async _update(obj: Entity, entity: BaseEntity): Promise<Entity> {
+  public static async update(obj: Entity, entity: BaseEntity): Promise<Entity> {
     if(obj.id === undefined || obj.id === null) {
       throw new Error("Property ID is not already definity. use method 'create' for creating record");
     }
@@ -63,7 +63,7 @@ abstract class BaseAPI {
    * @param { BaseEntity } entity - Заранее созданный объект модели
    * @returns { boolean } - Удачно ли прошло удаление
    */
-  protected async _delete(entity: BaseEntity): Promise<boolean> {
+  public static async delete(entity: BaseEntity): Promise<boolean> {
     await entity.remove();
     return true;
   }
@@ -74,7 +74,7 @@ abstract class BaseAPI {
    * @param { BaseEntity } entity - Сущность
    * @returns 
    */
-  protected async _get(id: number, entity: BaseEntity): Promise<Entity | null> {
+  public static async get(id: number, entity: BaseEntity): Promise<Entity | null> {
     const db = DataBase.getInstance();
     if(!db.database.isInitialized) throw new Error('Database is not init');
     
