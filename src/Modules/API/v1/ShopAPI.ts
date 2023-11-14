@@ -4,7 +4,7 @@
  */
 
 import BaseAPI from "./BaseAPI";
-import { Shop } from "@entities/types";
+import type { Shop } from "@entities/types";
 import { ShopList } from "@entities";
 
 class ShopAPI {
