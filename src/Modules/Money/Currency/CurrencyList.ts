@@ -1,8 +1,5 @@
 /**
  * Список валют
- */
-
-/**
  * https://www.xe.com/iso4217.php
  * https://www.iban.ru/currency-codes
  */

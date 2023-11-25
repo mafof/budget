@@ -4,7 +4,7 @@
  * @see MoneyType
  */
 
-import { MoneyType } from "../Types";
+import type { MoneyType } from "../Types";
 import Operations from "./Operations";
 
 class ArithmeticOperations extends Operations {
