@@ -25,6 +25,14 @@ class ProductAPI {
   static async get(id: number): Promise<Product | null> {
     return <Product> await BaseAPI.get(id, (new ProductList()));
   }
+
+  static async getAll(): Promise<Array<Product>> {
+    return <Array<Product>> await BaseAPI.getAll((new ProductList()));
+  }
+
+  static async getCount(): Promise<number> {
+    return await BaseAPI.getCount((new ProductList()));
+  }
 }
 
 export default ProductAPI;

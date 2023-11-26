@@ -9,7 +9,7 @@ import { BaseEntity } from "typeorm/browser";
 class BaseAPI {
 
   /**
-   * Исключенные свойства не попадающие 
+   * Исключенные свойства не попадающие в результат работы функций
    */
   public static excludeField: Array<string> = [
     'operations'
@@ -72,7 +72,7 @@ class BaseAPI {
    * Функция выдачи записи по ID
    * @param { number } id - Первичный ключ
    * @param { BaseEntity } entity - Сущность
-   * @returns 
+   * @returns { Promise<Entity | null> } - Возвращает элемент по признаку ID
    */
   public static async get(id: number, entity: BaseEntity): Promise<Entity | null> {
     const db = DataBase.getInstance();
@@ -90,6 +90,45 @@ class BaseAPI {
     } else {
       return null;
     }
+  }
+
+  /**
+   * Функция Возвращающая все записи 
+   * @param { BaseEntity } entity - Сущность 
+   * @returns { Promise<Array<Entity>> } - Возвращает список всех элементов
+   */
+  public static async getAll(entity: BaseEntity): Promise<Array<Entity>> {
+    const db = DataBase.getInstance();
+    if(!db.database.isInitialized) throw new Error('Database is not init');
+    
+    const rep = await db.database.getRepository(Object.getPrototypeOf(entity).constructor.name);
+    const el = await rep.find();
+
+    let arrObjEntity: Array<Entity> = [];
+    for(let i = 0; i < el.length; i++) {
+      if(arrObjEntity[i] === undefined) {
+        arrObjEntity[i] = { id: Infinity };
+      }
+
+      for(let key in el) {
+        arrObjEntity[i][key] = el[key];
+      }
+    }
+
+    return arrObjEntity;
+  }
+
+  /**
+   * Функция возвращает кол-во записей
+   * @param { BaseEntity } entity - Сущность 
+   * @returns { Promise<number> } - Возвращает кол-во записей
+   */
+  public static async getCount(entity: BaseEntity): Promise<number> {
+    const db = DataBase.getInstance();
+    if(!db.database.isInitialized) throw new Error('Database is not init');
+    
+    const rep = await db.database.getRepository(Object.getPrototypeOf(entity).constructor.name);
+    return await rep.count();
   }
 }
 

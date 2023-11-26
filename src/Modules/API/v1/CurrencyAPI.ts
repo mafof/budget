@@ -25,6 +25,14 @@ class CurrencyAPI {
   static async get(id: number): Promise<Currency | null> {
     return <Currency> await BaseAPI.get(id, (new CurrencyList()));
   }
+
+  static async getAll(): Promise<Array<Currency>> {
+    return <Array<Currency>> await BaseAPI.getAll((new CurrencyList()));
+  }
+
+  static async getCount(): Promise<number> {
+    return await BaseAPI.getCount((new CurrencyList()));
+  }
 }
 
 export default CurrencyAPI;

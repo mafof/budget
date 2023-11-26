@@ -25,6 +25,14 @@ class CostProductAPI {
   static async get(id: number): Promise<CostProduct | null> {
     return <CostProduct> await BaseAPI.get(id, (new EnemyCostProduct()));
   }
+
+  static async getAll(): Promise<Array<CostProduct>> {
+    return <Array<CostProduct>> await BaseAPI.getAll((new EnemyCostProduct()));
+  }
+
+  static async getCount(): Promise<number> {
+    return await BaseAPI.getCount((new EnemyCostProduct()));
+  }
 }
 
 export default CostProductAPI;

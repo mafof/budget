@@ -25,6 +25,14 @@ class OperationAPI {
   static async get(id: number): Promise<Operation | null> {
     return <Operation> await BaseAPI.get(id, (new OperationList()));
   }
+
+  static async getAll(): Promise<Array<Operation>> {
+    return <Array<Operation>> await BaseAPI.getAll((new OperationList()));
+  }
+
+  static async getCount(): Promise<number> {
+    return await BaseAPI.getCount((new OperationList()));
+  }
 }
 
 export default OperationAPI;

@@ -25,6 +25,14 @@ class ShopAPI {
   static async get(id: number): Promise<Shop | null> {
     return <Shop> await BaseAPI.get(id, (new ShopList()));
   }
+
+  static async getAll(): Promise<Array<Shop>> {
+    return <Array<Shop>> await BaseAPI.getAll((new ShopList()));
+  }
+
+  static async getCount(): Promise<number> {
+    return await BaseAPI.getCount((new ShopList()));
+  }
 }
 
 export default ShopAPI;

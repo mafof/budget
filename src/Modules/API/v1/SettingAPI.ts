@@ -25,6 +25,14 @@ class SettingAPI {
   static async get(id: number): Promise<Setting | null> {
     return <Setting> await BaseAPI.get(id, (new SettingList()));
   }
+
+  static async getAll(): Promise<Array<Setting>> {
+    return <Array<Setting>> await BaseAPI.getAll((new SettingList()));
+  }
+
+  static async getCount(): Promise<number> {
+    return await BaseAPI.getCount((new SettingList()));
+  }
 }
 
 export default SettingAPI;

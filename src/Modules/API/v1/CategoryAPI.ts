@@ -25,6 +25,14 @@ class CategoryAPI {
   static async get(id: number): Promise<Category | null> {
     return <Category> await BaseAPI.get(id, (new CategoryList()));
   }
+
+  static async getAll(): Promise<Array<Category>> {
+    return <Array<Category>> await BaseAPI.getAll((new CategoryList()));
+  }
+
+  static async getCount(): Promise<number> {
+    return await BaseAPI.getCount((new CategoryList()));
+  }
 }
 
 export default CategoryAPI;

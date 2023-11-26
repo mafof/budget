@@ -25,6 +25,14 @@ class WalletAPI {
   static async get(id: number): Promise<Wallet | null> {
     return <Wallet> await BaseAPI.get(id, (new WalletList()));
   }
+
+  static async getAll(): Promise<Array<Wallet>> {
+    return <Array<Wallet>> await BaseAPI.getAll((new WalletList()));
+  }
+
+  static async getCount(): Promise<number> {
+    return await BaseAPI.getCount((new WalletList()));
+  }
 }
 
 export default WalletAPI;
