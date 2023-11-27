@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, { FC, ReactElement, useEffect } from 'react'
+import React, { FC, ReactElement, useState, useEffect } from 'react'
 import { OpaqueColorValue, StyleSheet, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator, BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
@@ -9,10 +9,13 @@ import {
   HomePage,
   OperationListPage,
   StatsPage,
-  SettingPage
+  SettingPage,
+  WelcomeCreateWalletPage
 } from '@pages'
 
 import DataBase from '@modules/database';
+import { WalletAPI } from '@api';
+import { LoadingScreen } from '@components';
 
 interface IBaseSettingIcon {
   color: string | OpaqueColorValue | undefined,
@@ -26,6 +29,8 @@ interface ISettingIcon extends IBaseSettingIcon {
 const Tab = createBottomTabNavigator()
 
 const App: FC = () => {
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isShowWelcomePage, setIsShowWelcomePage] = useState<boolean>(false);
 
   useEffect(() => {
     const initGlobalVariable = async () => {
@@ -34,6 +39,11 @@ const App: FC = () => {
       if(!db.database.isInitialized) {
         await db.database.initialize();
       }
+
+      // Отображаем экран приветствия, если не найдено кошельков =>
+      setIsShowWelcomePage(await WalletAPI.getCount() === 0);
+
+      setIsLoaded(true);
     }
 
     initGlobalVariable();
@@ -90,37 +100,44 @@ const App: FC = () => {
   }
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={(route: any) => ({ tabBarIcon: (baseSettingIcon: IBaseSettingIcon) => getIcon({ route, ...baseSettingIcon }) })}
-      >
+    <LoadingScreen isLoaded={isLoaded}>
+      {
+        isShowWelcomePage ? 
+          <WelcomeCreateWalletPage /> 
+        :
+          <NavigationContainer>
+            <Tab.Navigator
+              screenOptions={(route: any) => ({ tabBarIcon: (baseSettingIcon: IBaseSettingIcon) => getIcon({ route, ...baseSettingIcon }) })}
+            >
 
-        <Tab.Screen
-          name='Главная'
-          component={HomePage}
-          options={options}
-        />
+              <Tab.Screen
+                name='Главная'
+                component={HomePage}
+                options={options}
+              />
 
-        <Tab.Screen
-          name='Операции'
-          component={OperationListPage}
-          options={options}
-        />
+              <Tab.Screen
+                name='Операции'
+                component={OperationListPage}
+                options={options}
+              />
 
-        <Tab.Screen
-          name='Статистика'
-          component={StatsPage}
-          options={options}
-        />
+              <Tab.Screen
+                name='Статистика'
+                component={StatsPage}
+                options={options}
+              />
 
-        <Tab.Screen
-          name='Настройки'
-          component={SettingPage}
-          options={options}
-        />
+              <Tab.Screen
+                name='Настройки'
+                component={SettingPage}
+                options={options}
+              />
 
-      </Tab.Navigator>
-    </NavigationContainer>
+            </Tab.Navigator>
+          </NavigationContainer>
+      }
+    </LoadingScreen>
   )
 }
 
