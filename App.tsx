@@ -13,12 +13,33 @@ import { LoadingScreen } from '@components';
 
 const theme = createTheme({
   lightColors: {
-    primary: 'red',
+    white: '#FFFFFF',
+    grey0: '#F1F1F1',
+    grey1: '#E3E3E3',
+    grey2: '#ADADAD',
+    grey3: '#808080',
+    grey4: '#575757',
+    grey5: '#282828',
+    black: '#000000',
   },
   darkColors: {
-    primary: 'blue',
+    background: '#0C1017',
+    card: '#12161F',
+    iconsCard: '#ADADAD',
+    changePartCard: '#46A3FF',
+    
+    white: '#FFFFFF',
+    grey0: '#F1F1F1',
+    grey1: '#E3E3E3',
+    grey2: '#ADADAD',
+    grey3: '#808080',
+    grey4: '#575757',
+    grey5: '#282828',
+    black: '#000000',
+
   },
-  mode: 'light'
+
+  mode: 'dark'
 })
 
 const App: FC = () => {

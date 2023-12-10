@@ -9,7 +9,8 @@ import {
 
 export {
   LoadingScreen,
+  Navigation,
+  
   AvailableBalance,
-  FastExpense,
-  Navigation
+  FastExpense
 }

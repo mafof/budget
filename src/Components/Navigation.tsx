@@ -7,6 +7,7 @@ import React, { ReactElement } from 'react';
 import { OpaqueColorValue, StyleSheet, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator, BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
+import { useTheme } from '@rneui/themed';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { 
@@ -15,7 +16,6 @@ import {
   StatsPage,
   SettingPage
 } from '@pages';
-import { useTheme } from '@rneui/themed';
 
 interface IBaseSettingIcon {
   color: string | OpaqueColorValue | undefined,
@@ -37,16 +37,19 @@ const Navigation = () => {
 
     switch (route.name) {
       case 'Главная':
-        iconName = 'home'
+        iconName = 'home';
+        break;
+      case 'Счета':
+        iconName = 'account-balance-wallet';
         break;
       case 'Операции':
-        iconName = 'list-alt'
+        iconName = 'list-alt';
         break;
       case 'Статистика':
-        iconName = 'data-usage'
+        iconName = 'data-usage';
         break;
       case 'Настройки':
-        iconName = 'settings'
+        iconName = 'settings';
         break;
     }
 
@@ -62,11 +65,17 @@ const Navigation = () => {
   }
 
   const options: BottomTabNavigationOptions = {
+    headerTitleAlign: 'center',
+    tabBarActiveTintColor: theme.colors.changePartCard,
+
     headerLeft: () => (
       <Icon
         name="account-circle"
         size={30}
-        style={style.profileIcon}
+        style={{
+          color: theme.colors.iconsCard,
+          ...style.profileIcon
+        }}
         onPress={onPressChangeProfile}
       />
     ),
@@ -75,7 +84,10 @@ const Navigation = () => {
       <Icon
         name="search"
         size={30}
-        style={style.searchIcon}
+        style={{
+          color: theme.colors.iconsCard,
+          ...style.searchIcon
+        }}
         onPress={onPressSearch}
       />
     ),
@@ -85,10 +97,11 @@ const Navigation = () => {
     <NavigationContainer
       theme={{
         colors: {
+          background: theme.colors.background, // Бекграунд всех экранов
+          card: theme.colors.card, // Верх и низ бекграунд цвета
+
+          text: theme.colors.grey1,
           primary: theme.colors.primary,
-          background: theme.colors.background,
-          card: theme.colors.white,
-          text: theme.colors.black,
           border: theme.colors.black,
           notification: theme.colors.white
         },
@@ -96,12 +109,22 @@ const Navigation = () => {
       }}
     >
       <Tab.Navigator
-        screenOptions={(route: any) => ({ tabBarIcon: (baseSettingIcon: IBaseSettingIcon) => getIcon({ route, ...baseSettingIcon }) })}
+        screenOptions={(route: any) => ({
+          tabBarIcon: (baseSettingIcon: IBaseSettingIcon) => getIcon({ route, ...baseSettingIcon }),
+          tabBarActiveTintColor: theme.colors.changePartCard,
+          tabBarInactiveTintColor: theme.colors.iconsCard
+        })}
       >
 
         <Tab.Screen
           name='Главная'
           component={HomePage}
+          options={options}
+        />
+
+        <Tab.Screen
+          name='Счета'
+          component={OperationListPage}
           options={options}
         />
 
