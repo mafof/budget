@@ -5,5 +5,6 @@ declare module '@rneui/themed' {
     card: string; // Верх и низ бекграунд цвета
     iconsCard: string; // Иконки верха и низа
     changePartCard: string; // Выбранный раздел в навигации
+    text: string; // Заголовок экрана
   }
 }

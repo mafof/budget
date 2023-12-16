@@ -13,6 +13,12 @@ import { LoadingScreen } from '@components';
 
 const theme = createTheme({
   lightColors: {
+    background: '#FFFFFF',
+    card: '#FFFFFF',
+    iconsCard: '#808080',
+    changePartCard: '#46A3FF',
+    text: '#000000',
+
     white: '#FFFFFF',
     grey0: '#F1F1F1',
     grey1: '#E3E3E3',
@@ -27,6 +33,7 @@ const theme = createTheme({
     card: '#12161F',
     iconsCard: '#ADADAD',
     changePartCard: '#46A3FF',
+    text: '#E3E3E3',
     
     white: '#FFFFFF',
     grey0: '#F1F1F1',

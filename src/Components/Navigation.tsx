@@ -99,8 +99,8 @@ const Navigation = () => {
         colors: {
           background: theme.colors.background, // Бекграунд всех экранов
           card: theme.colors.card, // Верх и низ бекграунд цвета
+          text: theme.colors.text, // Заголовок экрана
 
-          text: theme.colors.grey1,
           primary: theme.colors.primary,
           border: theme.colors.black,
           notification: theme.colors.white
