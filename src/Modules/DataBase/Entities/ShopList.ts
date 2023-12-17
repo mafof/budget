@@ -20,10 +20,10 @@ class ShopList extends BaseEntity implements Shop {
   @Column({ unique: true, nullable: false })
   name!: string;
 
-  @Column({ nullable: false, default: () => false })
+  @Column({ nullable: false, type: 'boolean', default: false })
   is_synced?: boolean;
 
-  @Column({ nullable: false, default: () => false })
+  @Column({ nullable: false, type: 'boolean', default: false })
   is_add_automatic?: boolean;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })

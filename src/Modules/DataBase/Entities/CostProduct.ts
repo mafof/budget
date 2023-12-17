@@ -34,10 +34,10 @@ class CostProduct extends BaseEntity implements EntityCostProduct {
   @Column({ default: () => 0 })
   fractionalMoney!: number;
 
-  @Column({ nullable: false, default: () => false })
+  @Column({ nullable: false, type: 'boolean', default: false })
   is_synced?: boolean;
 
-  @Column({ nullable: false, default: () => false })
+  @Column({ nullable: false, type: 'boolean', default: false })
   is_add_automatic?: boolean;
 
   @Column({ default: () => "strftime('%s','now') || substr(strftime('%f','now'),4)" })
