@@ -53,15 +53,15 @@ const Navigation = () => {
         break;
     }
 
-    return <Icon name={iconName} size={size} color={color} />
+    return <Icon name={iconName} size={size} color={color} />;
   }
 
   const onPressChangeProfile = () => {
-    Alert.alert('Заголовок', 'Здесь будет функционал смены аккаунтов')
+    Alert.alert('Заголовок', 'Здесь будет функционал смены аккаунтов');
   }
 
   const onPressSearch = () => {
-    Alert.alert('Заголовок', 'Здесь будет функционал глобального поиска')
+    Alert.alert('Заголовок', 'Здесь будет функционал глобального поиска');
   }
 
   const options: BottomTabNavigationOptions = {
@@ -159,6 +159,6 @@ const style = StyleSheet.create({
   searchIcon: {
     marginRight: 10
   }
-})
+});
 
 export default Navigation;

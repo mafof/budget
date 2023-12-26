@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm/browser';
+import { typeORMDriver } from 'react-native-sqlite-storage';
 import RNFS from 'react-native-fs';
 
 import * as Entities from './Entities/index'
@@ -16,13 +17,22 @@ class DataBase {
   private constructor () {
     this.database = new DataSource({
       type: 'react-native',
-      database: this.getPath('0_0_1__test'),
+      driver: typeORMDriver,
+      database: 'test_phisic_device_0_0_0__test',//this.getPath('test_phisic_device_0_0_0__test'),
       location: 'default',
-      synchronize: true,
       logging: 'all',
       logger: 'advanced-console',
       entities: Object.values(Entities)
     });
+  }
+
+  public async test() {
+
+    if(!this.database.isInitialized) await this.database.initialize()
+
+    const res = await this.database.query(`SELECT * FROM "sqlite_master" WHERE "type" = 'table' AND "name" = 'typeorm_metadata'`)
+
+    console.log(res)
   }
 
   private getPath(name: string): string {
