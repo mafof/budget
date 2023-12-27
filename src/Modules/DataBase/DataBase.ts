@@ -18,7 +18,7 @@ class DataBase {
   private constructor () {
     this.database = new DataSource({
       type: 'react-native',
-      database: this.getPath('test_0_0_0'),
+      database: 'test_0_0_0',
       location: 'default',
       logging: 'all',
       logger: 'advanced-console',
@@ -26,7 +26,9 @@ class DataBase {
     });
   }
 
-  /** Проверяет, нужно ли делать первичную синхронизацию */
+  /** 
+   * Проверяет, нужно ли делать первичную синхронизацию 
+   */
   public async firstSynchronize(): Promise<boolean> {
     if(!this.database.isInitialized) await this.database.initialize()
     
@@ -50,6 +52,9 @@ class DataBase {
     }
   }
 
+  /**
+   * @deprecated
+   */
   private getPath(name: string): string {
     return `${RNFS.DownloadDirectoryPath}/${name}.db`;
   }
