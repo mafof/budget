@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import { PermissionsAndroid } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { ThemeProvider, createTheme } from '@rneui/themed';
 
 import { 
@@ -62,10 +63,14 @@ const App: FC = () => {
   const requestPermissionFolder = async () => {
     try {
       const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
-
       return granted === PermissionsAndroid.RESULTS.GRANTED;
     } catch(err) {
-      console.log(err);
+      Toast.show({
+        type: 'error',
+        text1: 'Ошибка получения прав',
+        text2: 'Ошибка при проверки прав'
+      });
+
       return false;
     }
   };
@@ -77,24 +82,19 @@ const App: FC = () => {
 
       // Создаем соединение с БД =>
       const db = DataBase.getInstance();
-      //db.database.manager.
       if(!db.database.isInitialized) {
         await db.database.initialize();
-        await db.test();
-        await db.database.synchronize();
+        if(!await db.firstSynchronize()) {
+          Toast.show({
+            type: 'error',
+            text1: 'Ошибка инцилизации БД',
+            text2: 'Пожалуйста, свяжитесь с администратором'
+          });
+        }
       }
 
-      // try {
-      //   const countWallet = await WalletAPI.getCount()
-      // } catch(err) {
-
-      // } finally {
-
-      // }
-
       // Отображаем экран приветствия, если не найдено кошельков =>
-      //setIsShowWelcomePage(await WalletAPI.getCount() === 1);
-
+      setIsShowWelcomePage(await WalletAPI.getCount() === 0);
       setIsLoaded(true);
     }
 
@@ -106,6 +106,7 @@ const App: FC = () => {
       <LoadingScreen isLoaded={isLoaded}>
         { isShowWelcomePage ? <WelcomeCreateWalletPage /> : <Navigation /> }
       </LoadingScreen>
+      <Toast />
     </ThemeProvider>
   )
 }

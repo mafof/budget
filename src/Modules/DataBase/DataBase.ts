@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
+import { LogBox } from 'react-native';
 import { DataSource } from 'typeorm/browser';
-import { typeORMDriver } from 'react-native-sqlite-storage';
 import RNFS from 'react-native-fs';
 
 import * as Entities from './Entities/index'
@@ -17,8 +18,7 @@ class DataBase {
   private constructor () {
     this.database = new DataSource({
       type: 'react-native',
-      driver: typeORMDriver,
-      database: 'test_phisic_device_0_0_0__test',//this.getPath('test_phisic_device_0_0_0__test'),
+      database: this.getPath('test_0_0_0'),
       location: 'default',
       logging: 'all',
       logger: 'advanced-console',
@@ -26,13 +26,28 @@ class DataBase {
     });
   }
 
-  public async test() {
-
+  /** Проверяет, нужно ли делать первичную синхронизацию */
+  public async firstSynchronize(): Promise<boolean> {
     if(!this.database.isInitialized) await this.database.initialize()
+    
+    LogBox.uninstall();
+    LogBox.ignoreAllLogs();
 
-    const res = await this.database.query(`SELECT * FROM "sqlite_master" WHERE "type" = 'table' AND "name" = 'typeorm_metadata'`)
-
-    console.log(res)
+    try {
+      await this.database.query(`SELECT 1 FROM operation_list`);
+      return true;
+    } catch (err: any) {
+      if(err.message.match(/no such table/) !== null) {
+        await this.database.synchronize();
+      } else {
+        console.error(err.message)
+        return false;
+      }
+    } finally {
+      LogBox.install();
+      LogBox.ignoreAllLogs(false);
+      return true;
+    }
   }
 
   private getPath(name: string): string {
