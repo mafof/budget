@@ -14,7 +14,8 @@ import {
   HomePage,
   OperationListPage,
   StatsPage,
-  SettingPage
+  SettingPage,
+  WelcomePage
 } from '@pages';
 
 interface IBaseSettingIcon {
@@ -26,9 +27,13 @@ interface ISettingIcon extends IBaseSettingIcon {
   route: any
 }
 
+interface IPropsNavigation {
+  isShowWelcomePage: boolean
+}
+
 const Tab = createBottomTabNavigator();
 
-const Navigation = () => {
+const Navigation = ({ isShowWelcomePage }: IPropsNavigation) => {
   const { theme } = useTheme();
 
   const getIcon = ({ route, color, size }: ISettingIcon): ReactElement<Icon> => {
@@ -108,45 +113,48 @@ const Navigation = () => {
         dark: theme.mode === 'dark'
       }}
     >
-      <Tab.Navigator
-        screenOptions={(route: any) => ({
-          tabBarIcon: (baseSettingIcon: IBaseSettingIcon) => getIcon({ route, ...baseSettingIcon }),
-          tabBarActiveTintColor: theme.colors.changePartCard,
-          tabBarInactiveTintColor: theme.colors.iconsCard
-        })}
-      >
+      {
+        isShowWelcomePage ? 
+          <WelcomePage />
+        :
+          <Tab.Navigator
+            screenOptions={(route: any) => ({
+              tabBarIcon: (baseSettingIcon: IBaseSettingIcon) => getIcon({ route, ...baseSettingIcon }),
+              tabBarActiveTintColor: theme.colors.changePartCard,
+              tabBarInactiveTintColor: theme.colors.iconsCard
+            })}
+          >
+            <Tab.Screen
+              name='Главная'
+              component={HomePage}
+              options={options}
+            />
 
-        <Tab.Screen
-          name='Главная'
-          component={HomePage}
-          options={options}
-        />
+            <Tab.Screen
+              name='Счета'
+              component={OperationListPage}
+              options={options}
+            />
 
-        <Tab.Screen
-          name='Счета'
-          component={OperationListPage}
-          options={options}
-        />
+            <Tab.Screen
+              name='Операции'
+              component={OperationListPage}
+              options={options}
+            />
 
-        <Tab.Screen
-          name='Операции'
-          component={OperationListPage}
-          options={options}
-        />
+            <Tab.Screen
+              name='Статистика'
+              component={StatsPage}
+              options={options}
+            />
 
-        <Tab.Screen
-          name='Статистика'
-          component={StatsPage}
-          options={options}
-        />
-
-        <Tab.Screen
-          name='Настройки'
-          component={SettingPage}
-          options={options}
-        />
-
-      </Tab.Navigator>
+            <Tab.Screen
+              name='Настройки'
+              component={SettingPage}
+              options={options}
+            />
+          </Tab.Navigator>
+      }
     </NavigationContainer>
   );
 }

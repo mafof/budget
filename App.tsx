@@ -3,15 +3,9 @@ import { PermissionsAndroid } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { ThemeProvider, createTheme } from '@rneui/themed';
 
-import { 
-  WelcomeCreateWalletPage
-} from '@pages';
-
-import { Navigation } from '@components';
-
+import { LoadingScreen, Navigation } from '@components';
 import DataBase from '@modules/database';
 import { WalletAPI } from '@api';
-import { LoadingScreen } from '@components';
 
 const theme = createTheme({
   lightColors: {
@@ -104,7 +98,7 @@ const App: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LoadingScreen isLoaded={isLoaded}>
-        { isShowWelcomePage ? <WelcomeCreateWalletPage /> : <Navigation /> }
+        <Navigation isShowWelcomePage={isShowWelcomePage} />
       </LoadingScreen>
       <Toast />
     </ThemeProvider>

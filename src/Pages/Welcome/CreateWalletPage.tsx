@@ -1,6 +1,5 @@
 /**
- * Экран приветствия
- * 1 - ый экран, который нужен для создание кошелька
+ * Экран создания кошелька
  */
 
 import React, { FC } from 'react';
@@ -13,7 +12,7 @@ import {
 const CreateWalletPage: FC = () => {
   return (
     <View style={styles.container}>
-      <Text>Экран приветствия, 1 экран</Text>
+      <Text>Экран создания кошелька</Text>
     </View>
   );
 }

@@ -1,9 +1,11 @@
 import HomePage from "./HomePage";
-import OperationListPage from "./OperationListPage"
-import StatsPage from "./StatsPage"
-import SettingPage from "./SettingPage"
+import OperationListPage from "./OperationListPage";
+import StatsPage from "./StatsPage";
+import SettingPage from "./SettingPage";
 
-import WelcomeCreateWalletPage from "./Welcome/CreateWalletPage"
+import WelcomePage from "./Welcome/WelcomePage";
+import WelcomeLoginPage from "./Welcome/LoginPage";
+import WelcomeCreateWalletPage from "./Welcome/CreateWalletPage";
 
 export {
   HomePage,
@@ -11,5 +13,7 @@ export {
   StatsPage,
   SettingPage,
   
+  WelcomePage,
+  WelcomeLoginPage,
   WelcomeCreateWalletPage
 }
