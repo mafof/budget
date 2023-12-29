@@ -3,7 +3,7 @@
  */
 
 /* eslint-disable react/no-unstable-nested-components */
-import React, { ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { OpaqueColorValue, StyleSheet, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator, BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
@@ -33,7 +33,7 @@ interface IPropsNavigation {
 
 const Tab = createBottomTabNavigator();
 
-const Navigation = ({ isShowWelcomePage }: IPropsNavigation) => {
+const Navigation: FC<IPropsNavigation> = ({ isShowWelcomePage }: IPropsNavigation) => {
   const { theme } = useTheme();
 
   const getIcon = ({ route, color, size }: ISettingIcon): ReactElement<Icon> => {
