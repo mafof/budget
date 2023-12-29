@@ -2,10 +2,11 @@
  * Экран авторизации (только если подключен к серверу)
  */
 
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import { useTheme } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Toast from 'react-native-toast-message';
 import { TextInput } from '@components';
 
 import {
@@ -24,12 +25,18 @@ const LoginPage: FC = () => {
 
   const [login, setLogin] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [isLoadingBtn, setIsLoadingBtn] = useState<boolean>();
 
   const changeNextButton = () => {
     if(login && password) {
-
+      setIsLoadingBtn(true);
+      Toast.show({
+        type: 'error',
+        text1: 'Ошибка аунтетификации',
+        text2: 'Функционал не готов, пожалуйста перезагрузите приложение'
+      })
     } else {
-      navigation.navigate('CreateWallet', {})
+      navigation.navigate('CreateWallet');
     }
   }
 
@@ -90,7 +97,6 @@ const LoginPage: FC = () => {
     },
 
     buttonNext: {
-      paddingTop: 20,
       width: 50,
       height: 50
     }
@@ -131,10 +137,12 @@ const LoginPage: FC = () => {
           containerStyle={styles.containerButton}
           loadingStyle={styles.buttonNext}
           radius={100}
-          loading={false}
+          loading={isLoadingBtn}
           onPress={changeNextButton}
         />
       </View>
+
+      <Toast />
     </View>
   );
 }
