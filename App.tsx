@@ -15,6 +15,11 @@ const theme = createTheme({
     changePartCard: '#46A3FF',
     text: '#000000',
 
+    input: '#808080',
+    inputFocus: '#46A3FF',
+    inputError: '#FF827E',
+    inputDisable: '#ADADAD',
+
     white: '#FFFFFF',
     grey0: '#F1F1F1',
     grey1: '#E3E3E3',
@@ -33,6 +38,11 @@ const theme = createTheme({
     iconsCard: '#ADADAD',
     changePartCard: '#46A3FF',
     text: '#E3E3E3',
+
+    input: '#808080',
+    inputFocus: '#46A3FF',
+    inputError: '#E45651',
+    inputDisable: '#282828',
     
     white: '#FFFFFF',
     grey0: '#F1F1F1',
