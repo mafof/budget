@@ -1,99 +1,136 @@
 /**
- * Компонент поля типа текст/пароль
+ * Комопнент для ввода текста/пароля/чисел
  */
 
-import React, { FC, useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { FC, useState } from 'react';
+import {
+   View,
+   TextInput as ReactNativeTextInput,
+   Text,
+   StyleSheet
+} from 'react-native';
 import { useTheme } from '@rneui/themed';
-import { TextInput as Input } from 'react-native-element-textinput';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+type val = string | undefined;
+type typeInput = 'text' | 'password' | 'number' ;
+
 interface IPropsTextInput {
-  value?: string,
-  textError?: string | null,
-  mode?: 'default' | 'numeric' | 'password',
-  label: string,
-  iconName?: string | null,
-  errorText?: string,
-  onChange: Function
-}
+  onChange: Function,
+  typeInput?: typeInput,
+  defaultValue?: val,
+  placeholder?: string,
+  disabled?: boolean,
+  iconName?: string,
+  textError?: string
+};
 
-const TextInput: FC<IPropsTextInput> = ({value, textError = null, onChange, label, iconName = null, mode = 'default'}: IPropsTextInput) => {
+const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultValue, placeholder, disabled = false, iconName, textError }: IPropsTextInput) => {
   const { theme } = useTheme();
-  const [error, setError] = useState<string | null>(textError);
 
-  useEffect(() => {
-    setError(textError);
-  }, [textError]);
+  const [value, setValue] = useState<val>(defaultValue);
+  const [error, setError] = useState<val>(textError);
+  const [focusable, setFocusable] = useState<boolean>(false);
+
+  const onChangeText = (text: string) => {
+    setValue(text);
+    setError(undefined);
+    onChange(text);
+  };
+
+  const onClearText = () => {
+    setValue(undefined);
+    setFocusable(false);
+  };
 
   const styles = StyleSheet.create({
-    input: {
+    container: {
+      flex: 1,
+      width: 'auto',
+      minWidth: '100%',
+      height: 50,
+      maxHeight: 50,
       marginTop: 10,
-      height: 55,
-      paddingHorizontal: 12,
-      borderRadius: 8,
-      borderWidth: 0.2,
-      borderBottomColor: error ? theme.colors.red : theme.colors.grey3,
-      borderLeftColor: error ? theme.colors.red : theme.colors.grey3,
-      borderRightColor: error ? theme.colors.red : theme.colors.grey3,
-      borderTopColor: error ? theme.colors.red : theme.colors.grey3
+      justifyContent: 'flex-start'
     },
 
-    inputStyle: { 
+    input: {
+      height: 50,
+      maxHeight: 50,
+      paddingHorizontal: 0,
       fontSize: 16,
+
+      borderWidth: 0.5,
+      borderRadius: 8,
+      borderColor: disabled ? theme.colors.inputDisable : error ? theme.colors.error : focusable ? theme.colors.inputFocus : theme.colors.input,
+
+      paddingLeft: iconName ? 35 : 5,
+      paddingRight: 5,
       color: theme.colors.text
     },
 
-    labelStyle: {
-      fontSize: 14,
-      position: 'absolute',
-      top: -10,
-      backgroundColor: theme.colors.background,
-      paddingHorizontal: 4,
-      color: theme.colors.grey3,
-      marginLeft: -4,
-    },
-
-    placeholderStyle: { 
-      color: error ? theme.colors.red : theme.colors.grey3,
-      fontSize: 16 
-    },
-
-    textErrorStyle: {
+    textError: {
+      display: 'flex',
       alignSelf: 'flex-start',
-      marginLeft: 5,
-      marginTop: 5,
-      textAlign: 'left',
-      fontSize: 10
+      color: theme.colors.inputError
     },
 
-    iconStyle: {
-      paddingRight: 10,
-      color: error ? theme.colors.red : theme.colors.grey3
+    icon: {
+      position: 'absolute',
+      paddingLeft: 5,
+      paddingTop: 12,
+      color: disabled ? theme.colors.inputDisable : error ? theme.colors.error : theme.colors.input,
+    },
+
+    iconFunctionality: {
+      position: 'absolute',
+      alignSelf: 'flex-end',
+      paddingTop: 14,
+      paddingRight: 5,
+      color: theme.colors.text
     }
   });
 
   return (
-    <Input 
-      value={value}
-      mode={mode === 'numeric' ? 'default' : mode}
-      label={label}
-      onChangeText={text => {
-        setError(null);
-        onChange(text);
-      }}
-      focusColor={theme.colors.blue}
-      renderRightIcon={() => null}
-      renderLeftIcon={() => iconName ? <Icon name={iconName} size={20} style={styles.iconStyle} /> : null}
-      keyboardType={mode === 'numeric' ? 'numeric' : 'default'}
-      textError={error || ''}
+    <>
+      <View style={styles.container}>
+        {iconName &&
+          <Icon
+            name={iconName}
+            size={25}
+            style={styles.icon}
+          />
+        }
 
-      style={styles.input}
-      inputStyle={styles.inputStyle}
-      labelStyle={styles.labelStyle}
-      placeholderStyle={styles.placeholderStyle}
-      textErrorStyle={styles.textErrorStyle}
-    />
+        <ReactNativeTextInput
+          value={value}
+          placeholder={placeholder}
+          placeholderTextColor={disabled ? theme.colors.inputDisable : error ? theme.colors.error : theme.colors.input}
+          focusable={focusable}
+          secureTextEntry={typeInput === 'password'}
+          editable={!disabled}
+          numberOfLines={1}
+          maxLength={28}
+          style={styles.input}
+          onFocus={() => { setFocusable(true) }}
+          onBlur={() => { setFocusable(false) }}
+          onChangeText={onChangeText}
+        />
+
+        {value &&
+          <Icon
+            name="close"
+            size={25}
+            style={styles.iconFunctionality}
+            onPress={onClearText}
+          />
+        }
+      </View>
+
+      {error &&
+        <Text style={styles.textError}>{error}</Text>
+      }
+    </>
   );
 };
 
