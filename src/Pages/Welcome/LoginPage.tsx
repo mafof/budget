@@ -3,21 +3,23 @@
  */
 
 import React, { FC, useState } from 'react';
-import { useTheme } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Toast from 'react-native-toast-message';
-import { TextInput } from '@components';
 
 import {
   Text,
   View,
+  ScrollView,
   StyleSheet
 } from 'react-native';
 
 import {
-  Button
+  Button,
+  useTheme
 } from '@rneui/themed';
+
+import { TextInput } from '@components';
 
 const LoginPage: FC = () => {
   const navigation = useNavigation();
@@ -25,7 +27,7 @@ const LoginPage: FC = () => {
 
   const [login, setLogin] = useState<string>();
   const [password, setPassword] = useState<string>();
-  const [isLoadingBtn, setIsLoadingBtn] = useState<boolean>();
+  const [isLoadingBtn, setIsLoadingBtn] = useState<boolean>(false);
 
   const changeNextButton = () => {
     if(login && password) {
@@ -104,45 +106,47 @@ const LoginPage: FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.containerWelcome}>
-        <Text style={styles.textWelcome}>Начальная настройка</Text>
+      <ScrollView scrollEnabled={false}>
+        <View style={styles.containerWelcome}>
+          <Text style={styles.textWelcome}>Начальная настройка</Text>
 
-        <Text style={styles.textWelcome2}>Добро пожаловать.</Text>
-        <Text style={styles.textWelcome2}>Настройте приложение для дальнейшего его использования</Text>
-      </View>
+          <Text style={styles.textWelcome2}>Добро пожаловать.</Text>
+          <Text style={styles.textWelcome2}>Настройте приложение для дальнейшего его использования</Text>
+        </View>
 
-      <View style={styles.containerBody}>
-        <Text style={styles.textBody}>Авторизируйтесь или пропустите этот шаг</Text>
-        
-        <TextInput 
-          label="Логин"
-          value={login}
-          iconName="account"
-          onChange={(v: string) => { setLogin(v) }}
-        />
+        <View style={styles.containerBody}>
+          <Text style={styles.textBody}>Авторизируйтесь или пропустите этот шаг</Text>
+          
+          <TextInput 
+            placeholder="Логин"
+            defaultValue={login}
+            iconName="account"
+            onChange={(v: string) => { setLogin(v) }}
+          />
 
-        <TextInput 
-          label="Пароль"
-          value={password}
-          mode="password"
-          iconName="form-textbox-password"
-          onChange={(v: string) => { setPassword(v) }}
-        />
+          <TextInput 
+            placeholder="Пароль"
+            defaultValue={password}
+            typeInput="password"
+            iconName="form-textbox-password"
+            onChange={(v: string) => { setPassword(v) }}
+          />
 
-        <Button
-          icon={<Icon name="arrow-right-bold" size={50} style={styles.iconButtonNext} />}
-          type="solid"
-          color="success"
-          style={styles.buttonNext}
-          containerStyle={styles.containerButton}
-          loadingStyle={styles.buttonNext}
-          radius={100}
-          loading={isLoadingBtn}
-          onPress={changeNextButton}
-        />
-      </View>
+          <Button
+            icon={<Icon name="arrow-right-bold" size={50} style={styles.iconButtonNext} />}
+            type="solid"
+            color="success"
+            style={styles.buttonNext}
+            containerStyle={styles.containerButton}
+            loadingStyle={styles.buttonNext}
+            radius={100}
+            loading={isLoadingBtn}
+            onPress={changeNextButton}
+          />
+        </View>
 
-      <Toast />
+        <Toast />
+      </ScrollView>
     </View>
   );
 }
