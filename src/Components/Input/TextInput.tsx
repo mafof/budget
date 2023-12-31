@@ -41,6 +41,7 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
   const onClearText = () => {
     setValue(undefined);
     setFocusable(false);
+    onChange(undefined);
   };
 
   const styles = StyleSheet.create({
@@ -103,6 +104,7 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
         }
 
         <ReactNativeTextInput
+          disableFullscreenUI={true}
           value={value}
           placeholder={placeholder}
           placeholderTextColor={disabled ? theme.colors.inputDisable : error ? theme.colors.error : theme.colors.input}
