@@ -2,7 +2,6 @@ import LoadingScreen from "./LoadingScreen";
 import Navigation from "./Navigation";
 
 import TextInput from "./Input/TextInput";
-import DropDownInput from "./Input/DropdownInput";
 
 // Экран "Домашнаяя страница" =>
 import { 
@@ -15,7 +14,6 @@ export {
   Navigation,
   
   TextInput,
-  DropDownInput,
   
   AvailableBalance,
   FastExpense
