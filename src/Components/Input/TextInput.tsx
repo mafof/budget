@@ -29,20 +29,19 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
   const { theme } = useTheme();
 
   const [value, setValue] = useState<val>(defaultValue);
-  const [error, setError] = useState<val>(textError);
   const [focusable, setFocusable] = useState<boolean>(false);
 
   const onChangeText = (text: string) => {
     setValue(text);
-    setError(undefined);
     onChange(text);
   };
 
   const onClearText = () => {
     setValue(undefined);
-    setFocusable(false);
-    onChange(undefined);
+    setFocusable(false);    
+    onChange('');
   };
+
 
   const styles = StyleSheet.create({
     container: {
@@ -63,7 +62,7 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
 
       borderWidth: 0.5,
       borderRadius: 8,
-      borderColor: disabled ? theme.colors.inputDisable : error ? theme.colors.error : focusable ? theme.colors.inputFocus : theme.colors.input,
+      borderColor: disabled ? theme.colors.inputDisable : textError ? theme.colors.error : focusable ? theme.colors.inputFocus : theme.colors.input,
 
       paddingLeft: iconName ? 35 : 5,
       paddingRight: 5,
@@ -80,7 +79,7 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
       position: 'absolute',
       paddingLeft: 5,
       paddingTop: 12,
-      color: disabled ? theme.colors.inputDisable : error ? theme.colors.error : theme.colors.input,
+      color: disabled ? theme.colors.inputDisable : textError ? theme.colors.error : theme.colors.input,
     },
 
     iconFunctionality: {
@@ -107,7 +106,7 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
           disableFullscreenUI={true}
           value={value}
           placeholder={placeholder}
-          placeholderTextColor={disabled ? theme.colors.inputDisable : error ? theme.colors.error : theme.colors.input}
+          placeholderTextColor={disabled ? theme.colors.inputDisable : textError ? theme.colors.error : theme.colors.input}
           focusable={focusable}
           secureTextEntry={typeInput === 'password'}
           editable={!disabled}
@@ -129,8 +128,8 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
         }
       </View>
 
-      {error &&
-        <Text style={styles.textError}>{error}</Text>
+      {textError &&
+        <Text style={styles.textError}>{textError}</Text>
       }
     </>
   );
