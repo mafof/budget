@@ -6,6 +6,7 @@ import React, { FC, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Toast from 'react-native-toast-message';
+import { Formik } from 'formik';
 
 import {
   Text,
@@ -24,23 +25,7 @@ import { TextInput } from '@components';
 const LoginPage: FC = () => {
   const navigation = useNavigation();
   const { theme } = useTheme();
-
-  const [login, setLogin] = useState<string>();
-  const [password, setPassword] = useState<string>();
   const [isLoadingBtn, setIsLoadingBtn] = useState<boolean>(false);
-
-  const changeNextButton = () => {
-    if(login && password) {
-      setIsLoadingBtn(true);
-      Toast.show({
-        type: 'error',
-        text1: 'Ошибка аунтетификации',
-        text2: 'Функционал не готов, пожалуйста перезагрузите приложение'
-      })
-    } else {
-      navigation.navigate('CreateWallet');
-    }
-  }
 
   const styles = StyleSheet.create({
     container: {
@@ -117,32 +102,52 @@ const LoginPage: FC = () => {
         <View style={styles.containerBody}>
           <Text style={styles.textBody}>Авторизируйтесь или пропустите этот шаг</Text>
           
-          <TextInput 
-            placeholder="Логин"
-            defaultValue={login}
-            iconName="account"
-            onChange={(v: string) => { setLogin(v) }}
-          />
+          <Formik
+            initialValues={{ login: '', password: '' }}
+            onSubmit={(values) => {
+              if(values.login && values.password) {
+                Toast.show({
+                  type: 'error',
+                  text1: 'Ошибка аунтетификации',
+                  text2: 'Функционал не готов, пожалуйста перезагрузите приложение'
+                })
+              } else {
+                navigation.navigate('CreateWallet');
+              }
+            }}
+          >
+            {({ values, errors, handleChange, handleSubmit }) => (
+              <>
+                <TextInput 
+                  placeholder="Логин"
+                  defaultValue={values.login}
+                  iconName="account"
+                  textError={errors.login}
+                  onChange={handleChange('login')}
+                />
 
-          <TextInput 
-            placeholder="Пароль"
-            defaultValue={password}
-            typeInput="password"
-            iconName="form-textbox-password"
-            onChange={(v: string) => { setPassword(v) }}
-          />
+                <TextInput 
+                  placeholder="Пароль"
+                  defaultValue={values.password}
+                  typeInput="password"
+                  iconName="form-textbox-password"
+                  onChange={handleChange('password')}
+                />
 
-          <Button
-            icon={<Icon name="arrow-right-bold" size={50} style={styles.iconButtonNext} />}
-            type="solid"
-            color="success"
-            style={styles.buttonNext}
-            containerStyle={styles.containerButton}
-            loadingStyle={styles.buttonNext}
-            radius={100}
-            loading={isLoadingBtn}
-            onPress={changeNextButton}
-          />
+                <Button
+                  icon={<Icon name="arrow-right-bold" size={50} style={styles.iconButtonNext} />}
+                  type="solid"
+                  color="success"
+                  style={styles.buttonNext}
+                  containerStyle={styles.containerButton}
+                  loadingStyle={styles.buttonNext}
+                  radius={100}
+                  loading={isLoadingBtn}
+                  onPress={handleSubmit}
+                />
+              </>
+            )}
+          </Formik>
         </View>
 
         <Toast />
