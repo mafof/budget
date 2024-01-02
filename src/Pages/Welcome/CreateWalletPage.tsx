@@ -10,6 +10,7 @@ import Toast from 'react-native-toast-message';
 import { 
   Text,
   View,
+  ScrollView,
   StyleSheet
 } from 'react-native';
 
@@ -104,30 +105,24 @@ const CreateWalletPage: FC = () => {
       <View style={styles.containerBody}>
         <Text style={styles.textBody}>Создайте ваш первый кошелек</Text>
 
-        {/* <TextInput
-          placeholder='Логин'
-          iconName='account'
-          onChange={(val: string) => { console.log(val) }}
-        />
-        
-        <TextInput
-          placeholder='Пароль'
-          typeInput='password'
-          iconName='form-textbox-password'
-          onChange={(val: string) => { console.log(val) }}
-        /> */}
+          <ScrollView scrollEnabled={false}>
+            <DropDownInput
+              placeholder='Валюта'
+              onChange={() => {  }}
+            />
 
-        <Button
-          icon={<Icon name="arrow-right-bold" size={50} style={styles.iconButtonNext} />}
-          type="solid"
-          color="success"
-          style={styles.buttonNext}
-          containerStyle={styles.containerButton}
-          loadingStyle={styles.buttonNext}
-          radius={100}
-          loading={isLoadingBtn}
-          onPress={changeNextButton}
-        />
+            <Button
+              icon={<Icon name="arrow-right-bold" size={50} style={styles.iconButtonNext} />}
+              type="solid"
+              color="success"
+              style={styles.buttonNext}
+              containerStyle={styles.containerButton}
+              loadingStyle={styles.buttonNext}
+              radius={100}
+              loading={isLoadingBtn}
+              onPress={changeNextButton}
+            />
+          </ScrollView>
       </View>
 
       <Toast />
