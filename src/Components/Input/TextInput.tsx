@@ -2,7 +2,7 @@
  * Комопнент для ввода текста/пароля/чисел
  */
 
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useRef } from 'react';
 import {
    View,
    TextInput as ReactNativeTextInput,
@@ -27,6 +27,7 @@ interface IPropsTextInput {
 
 const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultValue, placeholder, disabled = false, iconName, textError }: IPropsTextInput) => {
   const { theme } = useTheme();
+  const inputSearchRef = useRef<ReactNativeTextInput | null>(null);
 
   const [value, setValue] = useState<val>(defaultValue);
   const [focusable, setFocusable] = useState<boolean>(false);
@@ -38,7 +39,7 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
 
   const onClearText = () => {
     setValue(undefined);
-    setFocusable(false);    
+    inputSearchRef.current?.blur();
     onChange('');
   };
 
@@ -103,6 +104,7 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
         }
 
         <ReactNativeTextInput
+          ref={inputSearchRef}
           disableFullscreenUI={true}
           value={value}
           placeholder={placeholder}
