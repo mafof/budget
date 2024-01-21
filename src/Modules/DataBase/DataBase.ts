@@ -4,6 +4,7 @@ import { DataSource } from 'typeorm/browser';
 import RNFS from 'react-native-fs';
 
 import * as Entities from './Entities/index'
+import * as Migrations from './Migrations/index';
 
 /**
  * Класс "Базы данных"
@@ -22,7 +23,9 @@ class DataBase {
       location: 'default',
       logging: 'all',
       logger: 'advanced-console',
-      entities: Object.values(Entities)
+      migrationsRun: false,
+      entities: Object.values(Entities),
+      migrations: Object.values(Migrations)
     });
   }
 
@@ -41,6 +44,7 @@ class DataBase {
     } catch (err: any) {
       if(err.message.match(/no such table/) !== null) {
         await this.database.synchronize();
+        await this.database.runMigrations();
       } else {
         console.error(err.message)
         return false;
