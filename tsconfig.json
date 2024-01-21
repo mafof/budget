@@ -30,6 +30,7 @@
       "@hooks": ["./src/Hooks/index.ts"],
       "@components": ["./src/Components/index.ts"],
       "@helpers": ["./src/Helpers/index.ts"],
+      "@types": ["./src/Types/index.ts"],
       "@api": ["./src/Modules/API/index.ts"],
       "@modules/database": ["./src/Modules/DataBase/DataBase.ts"],
       "@entities": ["./src/Modules/DataBase/Entities/index.ts"],
