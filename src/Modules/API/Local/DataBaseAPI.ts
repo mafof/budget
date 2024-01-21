@@ -1,12 +1,21 @@
 /**
- * Базовый класс реализующий стандартный список CRUD операций с БД 
+ * Класс прослойка между БД и роутами для реализации простых CRUD операций
  */
 
 import DataBase from "@modules/database";
-import { Entity } from "@entities/types";
+import type { Entity } from "@entities/types";
 import { BaseEntity } from "typeorm/browser";
 
-class BaseAPI {
+import type {
+  DropDownDataObject
+} from '@types';
+
+type ColumnNameOfDataBase = {
+  id: string,
+  value: string
+};
+
+class DataBaseAPI {
 
   /**
    * Исключенные свойства не попадающие в результат работы функций
@@ -94,7 +103,7 @@ class BaseAPI {
 
   /**
    * Функция Возвращающая все записи 
-   * @param { BaseEntity } entity - Сущность 
+   * @param { BaseEntity } entity - Сущность
    * @returns { Promise<Array<Entity>> } - Возвращает список всех элементов
    */
   public static async getAll(entity: BaseEntity): Promise<Array<Entity>> {
@@ -119,6 +128,39 @@ class BaseAPI {
   }
 
   /**
+   * Функция возвращает список элементов для drop down списка
+   * @param { ColumnNameOfDataBase } column - Колонки
+   * @param { BaseEntity } entity - Сущность
+   * @returns { Promise<DropDownDataObject> } - Возвращает список drop down записей
+   */
+  public static async getAllDropDown(column: ColumnNameOfDataBase, entity: BaseEntity): Promise<DropDownDataObject> {
+    const db = DataBase.getInstance();
+    if(!db.database.isInitialized) throw new Error('Database is not init');
+
+    let selectColumn = {
+      id: `tb.${column.id}`,
+      value: `tb.${column.value}`
+    };
+
+    const rep = await db.database.getRepository(Object.getPrototypeOf(entity).constructor.name);
+    const el = await rep
+      .createQueryBuilder('tb')
+      .select([ selectColumn.id, selectColumn.value ])
+      .orderBy(`${selectColumn.id}`, 'ASC')
+      .getMany()
+
+    let arrObjEntity: DropDownDataObject = [];
+    for(let i = 0; i < el.length; i++) {
+      arrObjEntity.push({
+        id: Number(el[i][column.id]),
+        value: String(el[i][column.value])
+      });
+    }
+
+    return arrObjEntity;
+  }
+
+  /**
    * Функция возвращает кол-во записей
    * @param { BaseEntity } entity - Сущность 
    * @returns { Promise<number> } - Возвращает кол-во записей
@@ -132,4 +174,4 @@ class BaseAPI {
   }
 }
 
-export default BaseAPI;
+export default DataBaseAPI;
