@@ -138,7 +138,7 @@ const DropDownInput: FC<IPropsDropDownInput> = ({ data, api, onChange, defaultVa
 
       paddingLeft: iconName ? 35 : 5,
       paddingRight: 5,
-      color: disabled ? theme.colors.inputDisable : textError ? theme.colors.error : focusable ? theme.colors.inputFocus : theme.colors.text
+      color: disabled ? theme.colors.inputDisable : textError ? theme.colors.error : theme.colors.text
     },
 
     hiddenInput: {

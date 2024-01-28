@@ -69,7 +69,7 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
 
       paddingLeft: iconName ? 35 : 5,
       paddingRight: 5,
-      color: disabled ? theme.colors.inputDisable : textError ? theme.colors.error : focusable ? theme.colors.inputFocus : theme.colors.text
+      color: disabled ? theme.colors.inputDisable : textError ? theme.colors.error : theme.colors.text
     },
 
     textError: {
@@ -90,7 +90,7 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
       alignSelf: 'flex-end',
       paddingTop: 14,
       paddingRight: 5,
-      color: disabled ? theme.colors.inputDisable : textError ? theme.colors.error : focusable ? theme.colors.inputFocus : theme.colors.text
+      color: disabled ? theme.colors.inputDisable : textError ? theme.colors.error : theme.colors.text
     }
   });
 
