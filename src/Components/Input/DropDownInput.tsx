@@ -21,21 +21,21 @@ import type {
   DropDownDataObject
 } from '@types';
 
-type val = number | undefined;
+type val = number | null;
 type text = string | undefined;
 
 interface IPropsDropDownInput {
   data?: DropDownDataObject,
   api?: typeof BaseAPI,
   onChange: Function
-  defaultValue?: number,
+  defaultValue?: val,
   placeholder?: string,
   disabled?: boolean,
   iconName?: string,
   textError?: string
 };
 
-const DropDownInput: FC<IPropsDropDownInput> = ({ data, api, onChange, defaultValue, placeholder, disabled = false, iconName, textError }: IPropsDropDownInput) => {
+const DropDownInput: FC<IPropsDropDownInput> = ({ data, api, onChange, defaultValue = null, placeholder, disabled = false, iconName, textError }: IPropsDropDownInput) => {
   const { theme } = useTheme();
   const inputSearchRef = useRef<ReactNativeTextInput | null>(null);
 
@@ -68,11 +68,11 @@ const DropDownInput: FC<IPropsDropDownInput> = ({ data, api, onChange, defaultVa
   }
 
   const onClearText = () => {
-    setVal(undefined);
+    setVal(null);
     setTextSearch(undefined);
     setFindedData(_data);
     inputSearchRef.current?.blur();
-    onChange('');
+    onChange(null);
   };
 
   const notFound = (isNotFoundData : boolean) => {
