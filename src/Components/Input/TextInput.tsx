@@ -12,7 +12,7 @@ import {
 import { useTheme } from '@rneui/themed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-type val = string | undefined;
+type val = string | null;
 type typeInput = 'text' | 'password' | 'number' ;
 
 interface IPropsTextInput {
@@ -25,7 +25,7 @@ interface IPropsTextInput {
   textError?: string
 };
 
-const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultValue, placeholder, disabled = false, iconName, textError }: IPropsTextInput) => {
+const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultValue = null, placeholder, disabled = false, iconName, textError }: IPropsTextInput) => {
   const { theme } = useTheme();
   const inputSearchRef = useRef<ReactNativeTextInput | null>(null);
 
@@ -38,9 +38,9 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
   };
 
   const onClearText = () => {
-    setValue(undefined);
+    setValue(null);
     inputSearchRef.current?.blur();
-    onChange('');
+    onChange(null);
   };
 
 
@@ -106,7 +106,7 @@ const TextInput: FC<IPropsTextInput> = ({ onChange, typeInput = 'text', defaultV
         <ReactNativeTextInput
           ref={inputSearchRef}
           disableFullscreenUI={true}
-          value={value}
+          value={value == null ? undefined : value}
           placeholder={placeholder}
           placeholderTextColor={disabled ? theme.colors.inputDisable : textError ? theme.colors.error : theme.colors.input}
           focusable={focusable}
