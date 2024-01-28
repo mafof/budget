@@ -68,11 +68,13 @@ const DropDownInput: FC<IPropsDropDownInput> = ({ data, api, onChange, defaultVa
   }
 
   const onClearText = () => {
-    setVal(null);
-    setTextSearch(undefined);
-    setFindedData(_data);
-    inputSearchRef.current?.blur();
-    onChange(null);
+    if(!disabled) {
+      setVal(null);
+      setTextSearch(undefined);
+      setFindedData(_data);
+      inputSearchRef.current?.blur();
+      onChange(null);
+    }
   };
 
   const notFound = (isNotFoundData : boolean) => {
@@ -136,7 +138,7 @@ const DropDownInput: FC<IPropsDropDownInput> = ({ data, api, onChange, defaultVa
 
       paddingLeft: iconName ? 35 : 5,
       paddingRight: 5,
-      color: theme.colors.text
+      color: disabled ? theme.colors.inputDisable : theme.colors.text
     },
 
     hiddenInput: {
@@ -163,7 +165,7 @@ const DropDownInput: FC<IPropsDropDownInput> = ({ data, api, onChange, defaultVa
       alignSelf: 'flex-end',
       paddingTop: 14,
       paddingRight: 5,
-      color: theme.colors.text
+      color: disabled ? theme.colors.inputDisable : textError ? theme.colors.error : theme.colors.text
     },
 
     containerFlatList: {
